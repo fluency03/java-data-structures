@@ -41,7 +41,7 @@ public class ListTest {
     
     System.out.println( sll.getLength() );
 
-
+    // TODO check all the functionalities of list
 		
 		
 		
