@@ -62,6 +62,7 @@ public class SingleLinkedList<T> {
     length ++;
   }
   
+  // Insert a data at a specified position
   public boolean insert(T data, int position ) {
     // Check the position
     if (position < 0 || position > length) {
