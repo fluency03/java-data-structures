@@ -35,6 +35,21 @@ public class SingleLinkedList<T> {
     return length;
   }
   
+  // Check Empty
+  public boolean isEmpty() {
+    return length == 0;
+  }
+  
+  // Clear the whole list
+  public void clearList() {
+    head = null;
+    tail = null;
+    length = 0;
+  }
+  
+  /**
+   * Insert node with several methods
+   */
   // Insert a node at beginning of the list
   public void insertAtBegin(ListNode<T> node) {
     if (head == null || tail == null) {
@@ -93,6 +108,52 @@ public class SingleLinkedList<T> {
     return true;
   }
   
+  
+  /**
+   * Remove node with several methods
+   */
+  // Remove a node from the begin
+  public ListNode<T> removeFromBegin() {
+    if (head == null || tail == null) {
+      return null;
+    }
+    
+    ListNode<T> node = head;
+    head = node.getNext();
+    node.setNext(null);
+       
+    length --;
+    return node;
+  }
+  
+  // Remove a node from the end
+  public ListNode<T> removeFromEnd() {
+    if (head == null || tail == null) {
+      return null;
+    }
+    
+    ListNode<T> first = head;
+    ListNode<T> temp = null;
+    
+    while ((temp = first.getNext()) != null)  {
+      first = first.getNext();
+    }
+    
+    length --;
+    return temp; 
+  }
+  
+  // Remove the node at certain position
+  public void remove(int position) {
+    
+    
+    
+    
+    
+    
+    
+    
+  }
   
   
   
