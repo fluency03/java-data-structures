@@ -144,16 +144,42 @@ public class SingleLinkedList<T> {
   }
   
   // Remove the node at certain position
-  public void remove(int position) {
+  public ListNode<T> remove(int position) {
+    if (position < 0 || postion >length) {
+      System.out.println("The postion is out of range!");
+      return null;
+    }
     
+    ListNode<T> temp = head;
+    ListNode<T> removedNode = head;
+    if (head == null || tail == null) {
+      return null;
+    } else if (position == 0) {
+      head = head.getNext();
+    } else {
+      for (int i=1; i<position; i++){
+        temp = temp.getNext();
+      }
+      removedNode = temp.getNext();
+      removedNode.setNext(null);
+      temp.setNext(temp.getNext().getNext());
+    }
     
+    length --;
+    return removedNode;
+  }
+  
+  // Return the position of first data appeared.
+  public int getPosition(T data) {
     
-    
-    
+    /*
+     * TODO getPosition
+     */
     
     
     
   }
+  
   
   public String toString() {
     String str = "";
