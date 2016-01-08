@@ -49,11 +49,13 @@ public class SingleLinkedList<T> {
 
   
   /**
+   * --------------------------------
    * Insert node with several methods
+   * --------------------------------
    */
   // Insert a node at beginning of the list
   public void insertAtBegin(ListNode<T> node) {
-    if (head == null || tail == null) {
+    if (length == 0) {
       head = node;
       tail = node;
     } else {
@@ -66,7 +68,7 @@ public class SingleLinkedList<T> {
 
   // Insert a node at the end of the list
   public void insertAtEnd(ListNode<T> node) {
-    if (head == null || tail == null) {
+    if (length == 0) {
       head = node;
       tail = node;
     } else {
@@ -79,14 +81,14 @@ public class SingleLinkedList<T> {
   }
   
   // Insert a data at a specified position
-  public boolean insert(T data, int position ) {
+  public boolean insertAt(T data, int position ) {
     // Check the position
     if (position < 0 || position > length) {
       System.out.println("The position is out of range! ");
       return false;
     }
     
-    if (head == null || tail == null) {
+    if (length == 0) {
       head = new ListNode<T>(data);
       tail = head;
     } else if (position == 0) {
@@ -111,11 +113,14 @@ public class SingleLinkedList<T> {
   
   
   /**
+   * --------------------------------
    * Remove node with several methods
+   * --------------------------------
    */
   // Remove a node from the begin
-  public ListNode<T> removeFromBegin() {
-    if (head == null || tail == null) {
+  public ListNode<T> removeFirst() {
+    if (length == 0) {
+      System.out.println("Nothing to be removed!");
       return null;
     }
     
@@ -128,8 +133,9 @@ public class SingleLinkedList<T> {
   }
   
   // Remove a node from the end
-  public ListNode<T> removeFromEnd() {
-    if (head == null || tail == null) {
+  public ListNode<T> removeLast() {
+    if (length == 0) {
+      System.out.println("Nothing to be removed!");
       return null;
     }
     
@@ -145,7 +151,7 @@ public class SingleLinkedList<T> {
   }
   
   // Remove the node at certain position
-  public ListNode<T> remove(int position) {
+  public ListNode<T> removeFrom(int position) {
     if (position < 0 || position >length) {
       System.out.println("The postion is out of range!");
       return null;
@@ -153,7 +159,8 @@ public class SingleLinkedList<T> {
     
     ListNode<T> temp = head;
     ListNode<T> removedNode = head;
-    if (head == null || tail == null) {
+    if (length == 0) {
+      System.out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
       head = head.getNext();
@@ -179,7 +186,7 @@ public class SingleLinkedList<T> {
     
     ListNode<T> temp = head;
     T returnedData = null;
-    if (head == null || tail == null) {
+    if (length == 0) {
       return null;
     } else if (position == 0) {
       returnedData = head.getData();
@@ -214,15 +221,16 @@ public class SingleLinkedList<T> {
   // Convert the list to String
   public String toString() {
     String str = "";
-    if (head == null || tail == null) {
+    if (length == 0) {
+      System.out.println("The list is empty!");
       return str;
     }
     
     ListNode<T> temp = head;
-    ListNode<T> q;
+    ListNode<T> p;
     str = str + temp.getData();
-    while ((q = temp.getNext()) != null) {
-      str = str + "," + q.getData();
+    while ((p = temp.getNext()) != null) {
+      str = str + "," + p.getData();
       temp = temp.getNext();
     }
     

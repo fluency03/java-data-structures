@@ -28,7 +28,7 @@ public class ListTest {
       sll.insertAtEnd(ln);
     }
 		
-    sll.insert(100, 5);
+    sll.insertAt(100, 5);
     
     ListNode<Integer> p;
     /**
