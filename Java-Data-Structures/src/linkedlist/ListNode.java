@@ -17,6 +17,12 @@ public class ListNode<T> {
   public ListNode(T data) {
     this.data = data;
   }
+  
+  // Create an node with data specified
+  public ListNode(T data, ListNode<T> next) {
+    this.data = data;
+    this.next = next;
+  }
 
   // Obtain the next node
   public ListNode<T> getNext() {

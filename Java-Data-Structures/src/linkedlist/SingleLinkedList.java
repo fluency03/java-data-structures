@@ -16,8 +16,8 @@ public class SingleLinkedList<T> {
   public SingleLinkedList() { }
   
   public SingleLinkedList(ListNode<T> node) {
-    head = node;
-    tail = node;
+    head.setNext(node);
+    node.setNext(tail);
   }
   
   // Return the head of list
@@ -46,6 +46,7 @@ public class SingleLinkedList<T> {
     tail = null;
     length = 0;
   }
+
   
   /**
    * Insert node with several methods
@@ -167,6 +168,29 @@ public class SingleLinkedList<T> {
     
     length --;
     return removedNode;
+  }
+  
+  // Look at the data at certain position
+  public T peekAt(int position) {
+    if (position < 0 || position >length) {
+      System.out.println("The postion is out of range!");
+      return null;
+    }
+    
+    ListNode<T> temp = head;
+    T returnedData = null;
+    if (head == null || tail == null) {
+      return null;
+    } else if (position == 0) {
+      returnedData = head.getData();
+    } else {
+      for (int i=1; i<position; i++){
+        temp = temp.getNext();
+      }
+      returnedData = temp.getData();
+    }
+
+    return returnedData;
   }
   
   // Return the position of first data appeared.
