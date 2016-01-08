@@ -11,27 +11,28 @@ public class DoubleLinkedList<T> {
   private DoubleListNode<T> tail = null;
   private int length = 0;
   
-  public DoubleLinkedList() { 
-    head = new DoubleListNode<T>(null,null,null);
-    tail = new DoubleListNode<T>(null,head,null);
-    head.setNext(tail);
-  }
+  public DoubleLinkedList() { }
   
-  public DoubleLinkedList(DoubleListNode<T> node) { 
-    head = new DoubleListNode<T>(null,null,node);
-    tail = new DoubleListNode<T>(null,node,null);
-    node.setPrev(head);
-    node.setNext(tail);
+  public DoubleLinkedList(T data) { 
+    DoubleListNode<T> newNode = new DoubleListNode<>(data, null, null);
+    head = newNode;
+    tail = newNode;
     length = 1;
   }
   
   // Return the head of list
   public DoubleListNode<T> getHead() {
+    if (length == 0) {
+      System.out.println("The list is empty");
+    }
     return head;
   }
   
   // Return the head of list
   public DoubleListNode<T> getTail() {
+    if (length == 0) {
+      System.out.println("The list is empty");
+    }
     return tail;
   }
   
@@ -47,11 +48,30 @@ public class DoubleLinkedList<T> {
   
   // Clear the whole list
   public void clearList() {
-    head = new DoubleListNode<T>(null,null,null);
-    tail = new DoubleListNode<T>(null,head,null);
-    head.setNext(tail);
+    head = null;
+    tail = null;
     length = 0;
   }
+  
+  // Look at the data at certain position
+  public T peekAt(int position) {
+    if (position < 0 || position >= length) {
+      System.out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
+      return null;
+    }
+    
+    DoubleListNode<T> temp = head;
+    if (length == 0) {
+      System.out.println("The list is empty");
+      return null;
+    } else {
+      for (int i=0; i<position; i++){
+        temp = temp.getNext();
+      }
+      return temp.getData();
+    }
+  }
+  
   
   /**
    * --------------------------------
@@ -78,7 +98,7 @@ public class DoubleLinkedList<T> {
   
   // Insert a node at certain position 
   public void insertAt(T data, int position) {
-    if (position < 0 || position >length) {
+    if (position < 0 || position >= length) {
       System.out.println("The postion is out of range!");
       return;
     }
@@ -142,7 +162,7 @@ public class DoubleLinkedList<T> {
   
   // Remove a node from certain position
   public void removeFrom(int position) {
-    if (position < 0 || position >length) {
+    if (position < 0 || position >= length) {
       System.out.println("The postion is out of range!");
       return;
     }
@@ -181,9 +201,6 @@ public class DoubleLinkedList<T> {
     }
     return str;
   }
-  
-  
-  
-  
+
   
 }

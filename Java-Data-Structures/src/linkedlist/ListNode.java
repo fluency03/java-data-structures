@@ -34,7 +34,7 @@ public class ListNode<T> {
     this.next = next;
   }
 
-  // Obtian the data of current node
+  // Obtain the data of current node
   public T getData() {
     return data;
   }
