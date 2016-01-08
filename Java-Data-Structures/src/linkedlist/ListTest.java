@@ -13,7 +13,7 @@ public class ListTest {
 		ListNode<Integer> ln1 = new ListNode<>(5);
 		ListNode<Integer> ln2 = new ListNode<>();
 		ln2.setData(15);
-		System.out.println("The data of the node: " + ln1.getData() + " " + ln2.getData());
+		System.out.println("The data of the node: " + ln1.getData() + " " + ln2.toString());
 		
 		
 		// SingleLinkedList test
@@ -30,18 +30,23 @@ public class ListTest {
 		
     sll.insert(100, 5);
     
-    ListNode<Integer> p, q;
-    for (p=sll.getHead(); (q = p.getNext()) != null; p=q) {
-      // this condition of for-statement is not correct
-      System.out.println( p.getData() + " " + (p.getNext()==null) );
-    }
+    ListNode<Integer> p;
+    /**
+     * This condition of for-statement is not correct
+     */
+//    for (p=sll.getHead(); (q = p.getNext()) != null; p=q) {
+//      System.out.println( p.getData() + " " + (p.getNext()==null) );
+//    }
+
     for (p=sll.getHead(); p != null; p=p.getNext()) {
       System.out.println( p.getData() + " " + (p.getNext()==null) );
     }
     
     System.out.println( sll.getLength() );
-
-    // TODO check all the functionalities of list
+    
+    System.out.println( sll.toString() );
+    
+    System.out.println( sll.getPosition(4) );
 		
 		
 		

@@ -40,7 +40,8 @@ public class ListNode<T> {
 
   // Convert the node data into String
   public String toString() {
-    return (String)data;
+    String str = "";
+    return str + data;
   }
 
 

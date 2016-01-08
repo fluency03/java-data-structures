@@ -145,7 +145,7 @@ public class SingleLinkedList<T> {
   
   // Remove the node at certain position
   public ListNode<T> remove(int position) {
-    if (position < 0 || postion >length) {
+    if (position < 0 || position >length) {
       System.out.println("The postion is out of range!");
       return null;
     }
@@ -171,27 +171,38 @@ public class SingleLinkedList<T> {
   
   // Return the position of first data appeared.
   public int getPosition(T data) {
+    ListNode<T> temp = head;
+    int position = 0;
     
-    /*
-     * TODO getPosition
-     */
+    while (temp != null) {
+      if (temp.getData() == data) {
+        return position;
+      }
+      position ++;
+      temp = temp.getNext();
+    }
     
-    
+    // Return Integer.MIN_VALUE if not found
+    return Integer.MIN_VALUE;
     
   }
   
-  
+  // Convert the list to String
   public String toString() {
     String str = "";
-    /*
-     * TODO toSting
-     */
+    if (head == null || tail == null) {
+      return str;
+    }
+    
+    ListNode<T> temp = head;
+    ListNode<T> q;
+    str = str + temp.getData();
+    while ((q = temp.getNext()) != null) {
+      str = str + "," + q.getData();
+      temp = temp.getNext();
+    }
+    
     return str;
   }
   
-  
-  
-  
-  
-
 }
