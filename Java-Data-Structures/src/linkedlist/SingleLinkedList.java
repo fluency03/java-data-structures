@@ -50,12 +50,12 @@ public class SingleLinkedList<T> {
       return null;
     }
     
-    ListNode<T> temp = head;
     if (length == 0) {
       System.out.println("The list is empty");
       return null;
     } else {
-      while (temp.getNext() != null)  {
+      ListNode<T> temp = head;      
+      for (int i=0; i<position; i++) {
         temp = temp.getNext();
       }
       return temp.getData();
