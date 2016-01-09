@@ -6,6 +6,8 @@
 
 package linkedlist;
 
+import static java.lang.System.out;
+
 public class SingleLinkedList<T> {
 
   private ListNode<T> head = null; // the head of the list
@@ -22,7 +24,7 @@ public class SingleLinkedList<T> {
   // Return the head of list
   public ListNode<T> getHead() {
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
     }
     return head;
   }
@@ -46,12 +48,12 @@ public class SingleLinkedList<T> {
   // Look at the data at certain position
   public T peekAt(int position) {
     if (position < 0 || position >= length) {
-      System.out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
+      out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
       return null;
     }
     
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
       return null;
     } else {
       ListNode<T> temp = head;      
@@ -68,7 +70,7 @@ public class SingleLinkedList<T> {
     int position = 0;
     
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
       return -1;
     }
     
@@ -81,7 +83,7 @@ public class SingleLinkedList<T> {
     }
     
     // Return Integer.MIN_VALUE if not found
-    System.out.println("The data " + data + " is not found!");
+    out.println("The data " + data + " is not found!");
     return -1;
     
   }
@@ -124,7 +126,7 @@ public class SingleLinkedList<T> {
   public boolean insert(T data, int position ) {
     // Check the position
     if (position < 0 || position >= length) {
-      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return false;
     }
     
@@ -156,7 +158,7 @@ public class SingleLinkedList<T> {
   // Remove a node from the begin
   public T removeFirst() {
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
       ListNode<T> temp = head;
@@ -174,7 +176,7 @@ public class SingleLinkedList<T> {
   // Remove a node from the end
   public T removeLast() {
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     }
     
@@ -199,14 +201,14 @@ public class SingleLinkedList<T> {
   // Remove the node at certain position
   public T removeFrom(int position) {
     if (position < 0 || position >= length) {
-      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return null;
     }
     
     ListNode<T> temp = head;
     ListNode<T> removedNode = temp.getNext();
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
       head = head.getNext();
@@ -227,7 +229,7 @@ public class SingleLinkedList<T> {
   public String toString() {
     String str = "";
     if (length == 0) {
-      System.out.println("The list is empty!");
+      out.println("The list is empty!");
       return str;
     }
     

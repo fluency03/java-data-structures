@@ -5,6 +5,8 @@
 
 package linkedlist;
 
+import static java.lang.System.out;
+
 public class DoubleLinkedList<T> {
 
   private DoubleListNode<T> head = null;
@@ -23,7 +25,7 @@ public class DoubleLinkedList<T> {
   // Return the head of list
   public DoubleListNode<T> getHead() {
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
     }
     return head;
   }
@@ -31,7 +33,7 @@ public class DoubleLinkedList<T> {
   // Return the head of list
   public DoubleListNode<T> getTail() {
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
     }
     return tail;
   }
@@ -56,13 +58,13 @@ public class DoubleLinkedList<T> {
   // Look at the data at certain position
   public T peekAt(int position) {
     if (position < 0 || position >= length) {
-      System.out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
+      out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
       return null;
     }
     
     DoubleListNode<T> temp = head;
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
       return null;
     } else {
       for (int i=0; i<position; i++){
@@ -78,7 +80,7 @@ public class DoubleLinkedList<T> {
     int position = 0;
     
     if (length == 0) {
-      System.out.println("The list is empty");
+      out.println("The list is empty");
       return -1;
     }
     
@@ -91,7 +93,7 @@ public class DoubleLinkedList<T> {
     }
     
     // Return Integer.MIN_VALUE if not found
-    System.out.println("The data " + data + " is not found!");
+    out.println("The data " + data + " is not found!");
     return -1;
     
   }
@@ -137,7 +139,7 @@ public class DoubleLinkedList<T> {
   public boolean insert(T data, int position) {
     // Check the position
     if (position < 0 || position >= length) {
-      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return false;
     }
     
@@ -172,7 +174,7 @@ public class DoubleLinkedList<T> {
   // Remove a node from the beginning of the list
   public T removeFirst() {
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
       DoubleListNode<T> temp = head;
@@ -192,7 +194,7 @@ public class DoubleLinkedList<T> {
   // Remove a node from the end of the list
   public T removeLast() {
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
       DoubleListNode<T> temp = head;
@@ -212,14 +214,14 @@ public class DoubleLinkedList<T> {
   // Remove a node from certain position
   public T removeFrom(int position) {
     if (position < 0 || position >= length) {
-      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return null;
     }
     
     DoubleListNode<T> temp = head;
 //    DoubleListNode<T> removedNode = temp.getNext();
     if (length == 0) {
-      System.out.println("Nothing to be removed!");
+      out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
       head = head.getNext();
@@ -248,7 +250,7 @@ public class DoubleLinkedList<T> {
   public String toString() {
     String str = "";
     if (length == 0) {
-      System.out.println("The list is empty!");
+      out.println("The list is empty!");
       return str;
     }
     

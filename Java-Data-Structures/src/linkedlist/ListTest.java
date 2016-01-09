@@ -27,15 +27,15 @@ public class ListTest {
 
 		SingleLinkedList<Integer> sll = new SingleLinkedList<>(); 
     ListNode<Integer> p;
-		System.out.println( "Empty: " + sll.isEmpty() );
+		out.println( "Empty: " + sll.isEmpty() );
 		// Insert at begin
 		for (int i = 0; i < 10; i++) {
 		  sll.insertAtBegin(i);
     }
-    System.out.println( "Empty: " + sll.isEmpty() );
+    out.println( "Empty: " + sll.isEmpty() );
     // Print the list
     for (p=sll.getHead(); p != null; p=p.getNext()) {
-      System.out.println( p.getData() + ", Next: " + p.getNext() );
+      out.println( p.getData() + ", Next: " + p.getNext() );
     }
     // Remove first
     for (int i = 0; i < 10; i++) {
@@ -47,61 +47,81 @@ public class ListTest {
     for (int i = 10; i < 20; i++) {
       sll.insertAtEnd(i);
     }
-    System.out.println( "Empty: " + sll.isEmpty() );
+    out.println( "Empty: " + sll.isEmpty() );
     // Print the list
     for (p=sll.getHead(); p != null; p=p.getNext()) {
-      System.out.println( p.getData() + ", Next: " + p.getNext() );
+      out.println( p.getData() + ", Next: " + p.getNext() );
     }
     // Remove the last
     for (int i = 0; i < 10; i++) {
       sll.removeLast();
     }
-    System.out.println( "Empty: " + sll.isEmpty() );
+    out.println( "Empty: " + sll.isEmpty() );
     
     // -------------------------------------------------------------
-    System.out.println( "peekAt 0: " + sll.peekAt(0) );
+    out.println( "peekAt 0: " + sll.peekAt(0) );
     for (int i = 0; i < 10; i++) {
       sll.insertAtBegin(i);
     }
-    System.out.println( "peekAt 0: " + sll.peekAt(0) );
+    out.println( "peekAt 0: " + sll.peekAt(0) );
     sll.insert(100, 5);
     sll.insert(100, 0);
     sll.insert(100, 55);
-    System.out.println( "peekAt 0: " + sll.peekAt(0) );
+    out.println( "peekAt 0: " + sll.peekAt(0) );
     
     // Print the list
     for (p=sll.getHead(); p != null; p=p.getNext()) {
-      System.out.println( p.getData() + ", Next: " + p.getNext() );
+      out.println( p.getData() + ", Next: " + p.getNext() );
     }
     
     
     // -------------------------------------------------------------
     // Test getPosition(T data)
-    System.out.println( "9 From: " + sll.getPosition(9) + ", 4 From: " +  sll.getPosition(4) + ", 19 From: " + sll.getPosition(19) );
-    System.out.println( "101 From: " + sll.getPosition(101) );
+    out.println( "9 From: " + sll.getPosition(9) + ", 4 From: " +  sll.getPosition(4) + ", 19 From: " + sll.getPosition(19) );
+    out.println( "101 From: " + sll.getPosition(101) );
     
      // Test removeFirst() and removeLast()
-    System.out.println( "Removed first: " + sll.removeFirst() );
-    System.out.println( "Removed last: " + sll.removeLast() );
+    out.println( "Removed first: " + sll.removeFirst() );
+    out.println( "Removed last: " + sll.removeLast() );
     
     // Test getLength()
-    System.out.println( "The length of the list: " + sll.getLength() );
+    out.println( "The length of the list: " + sll.getLength() );
     
     // Test toString()
-    System.out.println( "Convert to String: " + sll.toString() );
+    out.println( "Convert to String: " + sll.toString() );
 		
     // Test peekAt(int position)
-    System.out.println( "@0: " + sll.peekAt(0) + ", @10: " + sll.peekAt(10) + ", @20: " + sll.peekAt(20) );
-    System.out.println( "@50: " + sll.peekAt(50) );
+    out.println( "@0: " + sll.peekAt(0) + ", @10: " + sll.peekAt(10) + ", @20: " + sll.peekAt(20) );
+    out.println( "@50: " + sll.peekAt(50) );
     
+    sll.clearList();
+    out.println( "Convert to String: " + sll.toString() );
     
     out.println("----------------------");
     out.println("DoubleLinkedList TEST!");
     out.println("----------------------");
 		
+    DoubleLinkedList<Integer> dll = new DoubleLinkedList<>(); 
     
     // TODO
 		
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 		
 		
 		
