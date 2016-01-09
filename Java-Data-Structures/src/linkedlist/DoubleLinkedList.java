@@ -72,7 +72,29 @@ public class DoubleLinkedList<T> {
     }
   }
   
-  
+  // Return the position of first data appeared.
+  public int getPosition(T data) {
+    DoubleListNode<T> temp = head;
+    int position = 0;
+    
+    if (length == 0) {
+      System.out.println("The list is empty");
+      return -1;
+    }
+    
+    while (temp != null) {
+      if (temp.getData() == data) {
+        return position;
+      }
+      position ++;
+      temp = temp.getNext();
+    }
+    
+    // Return Integer.MIN_VALUE if not found
+    System.out.println("The data " + data + " is not found!");
+    return -1;
+    
+  }
   
   /**
    * --------------------------------
