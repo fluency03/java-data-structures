@@ -73,6 +73,7 @@ public class DoubleLinkedList<T> {
   }
   
   
+  
   /**
    * --------------------------------
    * Insert node with several methods
@@ -121,23 +122,19 @@ public class DoubleLinkedList<T> {
     DoubleListNode<T> temp = head;
     DoubleListNode<T> newNode = new DoubleListNode<>(data);
     if (length == 0) {
-      head.setNext(newNode);
-      newNode.setPrev(head);
-      newNode.setNext(tail);
-      tail.setPrev(newNode);
+      head = newNode;
+      tail = newNode;
     } else if (position == 0) {
-      newNode.setPrev(head);
-      newNode.setNext(head.getNext());
-      newNode.getNext().setPrev(newNode);
-      head.setNext(newNode);
+      newNode.setNext(head);
+      head.setPrev(newNode);
+      head = newNode;
     } else {
       for (int i=1; i<position; i++){
         temp = temp.getNext();
       }
-      
-      newNode.setPrev(temp);
       newNode.setNext(temp.getNext());
-      newNode.getNext().setPrev(newNode);
+      newNode.setPrev(temp);
+      temp.getNext().setPrev(newNode);
       temp.setNext(newNode);
     }
     
@@ -151,54 +148,79 @@ public class DoubleLinkedList<T> {
    * --------------------------------
    */
   // Remove a node from the beginning of the list
-  public void removeFirst() {
+  public T removeFirst() {
     if (length == 0) {
       System.out.println("Nothing to be removed!");
-      return;
-    }
-    
-    DoubleListNode<T> temp = head.getNext();
-    head.setNext(temp.getNext());
-    temp.getNext().setPrev(head);
-    length --;
-  }
-  
-  // Remove a node from the end of the list
-  public void removeLast() {
-    if (length == 0) {
-      System.out.println("Nothing to be removed!");
-      return;
-    }
-    
-    DoubleListNode<T> temp = tail.getPrev();
-    tail.setPrev(temp.getPrev());
-    temp.getPrev().setNext(tail);
-    length --;     
-  }
-  
-  // Remove a node from certain position
-  public void removeFrom(int position) {
-    if (position < 0 || position >= length) {
-      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
-      return;
+      return null;
+    } else if (length == 1) {
+      DoubleListNode<T> temp = head;
+      head = null;
+      tail = null;
+      length --;
+      return temp.getData();
     }
     
     DoubleListNode<T> temp = head;
+    head = head.getNext();
+    head.setPrev(null);
+    length --;
+    return temp.getData();
+  }
+  
+  // Remove a node from the end of the list
+  public T removeLast() {
     if (length == 0) {
       System.out.println("Nothing to be removed!");
-      return;
-    } else if (position == 0) {
-      head.setNext(temp.getNext().getNext());
-      temp.getNext().getNext().setPrev(head);
-    } else {
-      for (int i=1; i<position; i++){
-        temp = temp.getNext();
-      }
-      temp.getNext().setPrev(temp.getPrev());
-      temp.getPrev().setNext(temp.getNext());
+      return null;
+    } else if (length == 1) {
+      DoubleListNode<T> temp = head;
+      head = null;
+      tail = null;
+      length --;
+      return temp.getData();
     }
     
-    length --;   
+    DoubleListNode<T> temp = tail;
+    tail = tail.getPrev();
+    tail.setNext(null);
+    length --;     
+    return temp.getData();
+  }
+  
+  // Remove a node from certain position
+  public T removeFrom(int position) {
+    if (position < 0 || position >= length) {
+      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      return null;
+    }
+    
+    DoubleListNode<T> temp = head;
+//    DoubleListNode<T> removedNode = temp.getNext();
+    if (length == 0) {
+      System.out.println("Nothing to be removed!");
+      return null;
+    } else if (position == 0) {
+      head = head.getNext();
+      head.setPrev(null);
+      length --;
+      return temp.getData();
+    } else {
+      DoubleListNode<T> removedNode = temp.getNext();
+      for (int i=1; i<position; i++){
+        temp = temp.getNext();
+        removedNode = temp.getNext();
+      }
+      if (removedNode.getNext() == null) {
+        temp.setNext(null);
+        tail = temp;
+        length --;
+        return removedNode.getData(); 
+      }
+      temp.setNext(removedNode.getNext());
+      removedNode.getNext().setPrev(temp);
+      length --;
+      return removedNode.getData();
+    }  
   }
   
   public String toString() {
