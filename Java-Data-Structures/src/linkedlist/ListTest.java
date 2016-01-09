@@ -15,8 +15,10 @@ public class ListTest {
 		ln2.setData(15);
 		System.out.println("The data of the node: " + ln1.getData() + " " + ln2.toString());
 		
-		
-		// SingleLinkedList test
+		/* -----------------------
+		 * SingleLinkedList test
+		 * -----------------------
+		 */
 		SingleLinkedList<Integer> sll = new SingleLinkedList<>(); 
 		System.out.println( "Empty: " + sll.isEmpty() );
 		for (int i = 0; i < 10; i++) {
@@ -55,8 +57,13 @@ public class ListTest {
     System.out.println( "@0: " + sll.peekAt(0) + ", @10: " + sll.peekAt(10) + ", @20: " + sll.peekAt(20) );
     System.out.println( "@50: " + sll.peekAt(50) );
     
-    
+    /* -----------------------
+     * DoubleLinkedList test
+     * -----------------------
+     */
 		
+    
+    // TODO
 		
 		
 		

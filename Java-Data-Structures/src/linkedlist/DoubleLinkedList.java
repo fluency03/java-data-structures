@@ -14,7 +14,7 @@ public class DoubleLinkedList<T> {
   public DoubleLinkedList() { }
   
   public DoubleLinkedList(T data) { 
-    DoubleListNode<T> newNode = new DoubleListNode<>(data, null, null);
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
     head = newNode;
     tail = newNode;
     length = 1;
@@ -79,28 +79,43 @@ public class DoubleLinkedList<T> {
    * --------------------------------
    */
   // Insert a node at the front of the list
-  public void insertAtBegin(DoubleListNode<T> node) {
-    node.setPrev(head);
-    node.setNext(head.getNext());
-    node.getNext().setPrev(node);
-    head.setNext(node);
+  public void insertAtBegin(T data) {
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    
+    if (length == 0) {
+      head = newNode;
+      tail = newNode;
+    } else {
+      newNode.setNext(head);
+      head.setPrev(newNode);
+      head = newNode;
+    } 
     length ++;
+    
   }
   
   // Insert a node at the end of the list
-  public void insertAtEnd(DoubleListNode<T> node) {
-    tail.getPrev().setNext(node);
-    node.setPrev(tail.getPrev());
-    node.setNext(tail);
-    tail.setPrev(node);
+  public void insertAtEnd(T data) {
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    
+    if (length == 0) {
+      head = newNode;
+      tail = newNode;
+    } else {
+      newNode.setPrev(tail);
+      tail.setNext(newNode);
+      tail = newNode;
+    }
     length ++;
+    
   }
   
   // Insert a node at certain position 
-  public void insertAt(T data, int position) {
+  public boolean insert(T data, int position) {
+    // Check the position
     if (position < 0 || position >= length) {
-      System.out.println("The postion is out of range!");
-      return;
+      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+      return false;
     }
     
     DoubleListNode<T> temp = head;
@@ -127,6 +142,7 @@ public class DoubleLinkedList<T> {
     }
     
     length ++;
+    return true;
   }
   
   /**
@@ -163,7 +179,7 @@ public class DoubleLinkedList<T> {
   // Remove a node from certain position
   public void removeFrom(int position) {
     if (position < 0 || position >= length) {
-      System.out.println("The postion is out of range!");
+      System.out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return;
     }
     
