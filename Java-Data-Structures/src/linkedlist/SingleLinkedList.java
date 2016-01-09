@@ -4,7 +4,6 @@
  *
  */
 
-
 package linkedlist;
 
 public class SingleLinkedList<T> {

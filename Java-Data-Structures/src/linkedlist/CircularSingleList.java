@@ -1,13 +1,15 @@
 /**
- * Class:  RoundSingleLinkedList
+ * Class: CircularSingleList
  * Author: Chang LIU
- *
  */
 
 package linkedlist;
 
-public class RoundSingleList {
+public class CircularSingleList<T> {
 
+  
+  
+  
   
   
   
