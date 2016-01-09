@@ -8,16 +8,14 @@ package linkedlist;
 
 public class SingleLinkedList<T> {
 
-  private ListNode<T> head = null;
-  private ListNode<T> tail = null;
-  private int length = 0;
+  private ListNode<T> head = null; // the head of the list
+  private int length = 0; // the length of the list
   
   public SingleLinkedList() { }
   
   public SingleLinkedList(T data) {
-    ListNode<T> node = new ListNode<>(data);
-    head = node;
-    tail = node;
+    ListNode<T> newNode = new ListNode<>(data);
+    head = newNode;
     length = 1;
   }
   
@@ -27,14 +25,6 @@ public class SingleLinkedList<T> {
       System.out.println("The list is empty");
     }
     return head;
-  }
-  
-  // Return the head of list
-  public ListNode<T> getTail() {
-    if (length == 0) {
-      System.out.println("The list is empty");
-    }
-    return tail;
   }
   
   // Return the length of list
@@ -50,7 +40,6 @@ public class SingleLinkedList<T> {
   // Clear the whole list
   public void clearList() {
     head = null;
-    tail = null;
     length = 0;
   }
 
@@ -66,7 +55,7 @@ public class SingleLinkedList<T> {
       System.out.println("The list is empty");
       return null;
     } else {
-      for (int i=0; i<position; i++){
+      while (temp.getNext() != null)  {
         temp = temp.getNext();
       }
       return temp.getData();
@@ -108,7 +97,6 @@ public class SingleLinkedList<T> {
     
     if (length == 0) {
       head = newNode;
-      tail = newNode;
     } else {
       newNode.setNext(head);
       head = newNode;
@@ -119,14 +107,15 @@ public class SingleLinkedList<T> {
   // Insert a node at the end of the list
   public void insertAtEnd(T data) {
     ListNode<T> newNode = new ListNode<>(data);
-    
+
     if (length == 0) {
       head = newNode;
-      tail = newNode;
     } else {
-      ListNode<T> last = tail;
-      last.setNext(newNode);
-      tail = newNode;
+      ListNode<T> temp = head;      
+      while (temp.getNext() != null)  {
+        temp = temp.getNext();
+      }
+      temp.setNext(newNode);
     }
     length ++;
   }
@@ -142,7 +131,6 @@ public class SingleLinkedList<T> {
     ListNode<T> newNode = new ListNode<>(data);
     if (length == 0) {
       head = newNode;
-      tail = newNode;
     } else if (position == 0) {
       newNode.setNext(head);
       head = newNode;
@@ -173,7 +161,6 @@ public class SingleLinkedList<T> {
     } else if (length == 1) {
       ListNode<T> temp = head;
       head = null;
-      tail = null;
       length --;
       return temp.getData();
     }
@@ -196,7 +183,6 @@ public class SingleLinkedList<T> {
     ListNode<T> q = temp;
     if (next == null) {
       head = null;
-      tail = null;
       length --;
       return temp.getData();
     } else {
