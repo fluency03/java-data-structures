@@ -249,7 +249,7 @@ public class CircularDoubleList<T> {
     DoubleListNode<T> temp = head;
     DoubleListNode<T> p;
     str = str + temp.getData();
-    while ((p = temp.getNext()) != null) {
+    while ((p = temp.getNext()) != head) {
       str = str + "," + p.getData();
       temp = temp.getNext();
     }
