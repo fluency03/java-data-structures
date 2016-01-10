@@ -65,8 +65,18 @@ public class LinkedStack<T> {
   // Convert the stack into a String
   public String toString() {
     String str = "";
+    if (length == 0) {
+      out.println("The list is empty!");
+      return str;
+    }
     
-    // TODO
+    ListNode<T> temp = top;
+    ListNode<T> p;
+    str = str + temp.getData();
+    while ((p = temp.getNext()) != null) {
+      str = p.getData() + ", "+ str;
+      temp = temp.getNext();
+    }
     
     return str;
   }
