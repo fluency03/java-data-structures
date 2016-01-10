@@ -261,7 +261,7 @@ public class CircularSingleList<T> {
     ListNode<T> temp = head;
     ListNode<T> p;
     str = str + temp.getData();
-    while ((p = temp.getNext()) != null) {
+    while ((p = temp.getNext()) != head) {
       str = str + ", " + p.getData();
       temp = temp.getNext();
     }
