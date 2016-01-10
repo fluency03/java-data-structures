@@ -145,24 +145,17 @@ public class CircularDoubleList<T> {
       newNode.setNext(newNode);
       newNode.setPrev(newNode);
       head = newNode;
-    } else if (position == 0) {
-      newNode.setNext(head);
-      newNode.setPrev(head.getPrev());
-      head.getPrev().setNext(newNode);
-      head.setPrev(newNode);
-      head = newNode;
     } else {
-      
-      
-      // TODO
-      
-      for (int i=1; i<position; i++){
+      for (int i=0; i<position; i++){
         temp = temp.getNext();
       }
-      newNode.setNext(temp.getNext());
-      newNode.setPrev(temp);
-      temp.getNext().setPrev(newNode);
-      temp.setNext(newNode);
+      newNode.setNext(temp);
+      newNode.setPrev(temp.getPrev());
+      temp.getPrev().setNext(newNode);
+      temp.setPrev(newNode);
+      if (position == 0) {
+        head = newNode; 
+      }
     }
     
     length ++;
@@ -182,14 +175,14 @@ public class CircularDoubleList<T> {
     } else if (length == 1) {
       DoubleListNode<T> temp = head;
       head = null;
-      tail = null;
       length --;
       return temp.getData();
     }
     
     DoubleListNode<T> temp = head;
+    head.getNext().setPrev(head.getPrev());
+    head.getPrev().setNext(head.getNext());
     head = head.getNext();
-    head.setPrev(null);
     length --;
     return temp.getData();
   }
@@ -202,17 +195,20 @@ public class CircularDoubleList<T> {
     } else if (length == 1) {
       DoubleListNode<T> temp = head;
       head = null;
-      tail = null;
       length --;
       return temp.getData();
     }
     
-    DoubleListNode<T> temp = tail;
-    tail = tail.getPrev();
-    tail.setNext(null);
+    DoubleListNode<T> temp = head.getNext();
+    head.setPrev(temp.getPrev());
+    temp.getPrev().setNext(head);
     length --;     
     return temp.getData();
   }
+  
+  
+  
+  // TODO
   
   // Remove a node from certain position
   public T removeFrom(int position) {
@@ -222,31 +218,24 @@ public class CircularDoubleList<T> {
     }
     
     DoubleListNode<T> temp = head;
-//    DoubleListNode<T> removedNode = temp.getNext();
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (position == 0) {
-      head = head.getNext();
-      head.setPrev(null);
+    } else if (length == 1) {
+      head = null;
       length --;
       return temp.getData();
     } else {
-      DoubleListNode<T> removedNode = temp.getNext();
-      for (int i=1; i<position; i++){
+      for (int i=0; i<position; i++) {
         temp = temp.getNext();
-        removedNode = temp.getNext();
       }
-      if (removedNode.getNext() == null) {
-        temp.setNext(null);
-        tail = temp;
-        length --;
-        return removedNode.getData(); 
+      temp.getPrev().setNext(temp.getNext());
+      temp.getNext().setPrev(temp.getPrev());
+      if (position == 0) {
+        head = temp.getNext();
       }
-      temp.setNext(removedNode.getNext());
-      removedNode.getNext().setPrev(temp);
       length --;
-      return removedNode.getData();
+      return temp.getData();
     }  
   }
   
@@ -266,19 +255,5 @@ public class CircularDoubleList<T> {
     }
     return str;
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
   
 }
