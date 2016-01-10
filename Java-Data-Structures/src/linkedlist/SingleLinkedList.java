@@ -160,11 +160,6 @@ public class SingleLinkedList<T> {
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (length == 1) {
-      ListNode<T> temp = head;
-      head = null;
-      length --;
-      return temp.getData();
     }
     
     ListNode<T> temp = head;
