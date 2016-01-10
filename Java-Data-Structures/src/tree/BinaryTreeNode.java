@@ -5,7 +5,7 @@
 
 package tree;
 
-import static java.lang.System.out;
+//import static java.lang.System.out;
 
 public class BinaryTreeNode<T> {
 
@@ -56,6 +56,18 @@ public class BinaryTreeNode<T> {
     return str;
   }
   
+  // Convert the tree with root of current node into String
+  public String toString() {
+    String str = "";
+    if (left == null && right == null) {
+      str = str + data;
+    } else {
+      str = 
+    }
+    
+    return str;
+  }
+  
   // Check whether this node is leaf
   public boolean isLeaf() {
     return (left == null && right == null);
@@ -71,8 +83,18 @@ public class BinaryTreeNode<T> {
     return (right == null);
   }
   
-  
-  
+  /*
+   * Find the data downwards from the node specified
+   */  
+  public static <T> boolean findData(BinaryTreeNode<T> root, T data) {
+    if (root == null) {
+      return false;
+    } else if (root.getData() == data) {
+      return true;
+    } else {
+      return ( findData(root.getLeft(), data) || findData(root.getRight(), data));
+    }    
+  }
   
   
   
