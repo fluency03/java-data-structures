@@ -54,7 +54,7 @@ public class LinkedStack<T> {
   
   // Return whether the stack is empty
   public boolean isEmpty() {
-    return length == 0;
+    return (length == 0);
   }
   
   // Get the length of the stack
