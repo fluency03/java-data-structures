@@ -5,7 +5,7 @@
 
 package tree;
 
-import static java.lang.System.out;
+//import static java.lang.System.out;
 
 public class BTNodeWithParent<T> {
 
@@ -86,6 +86,21 @@ public class BTNodeWithParent<T> {
     return (right == null);
   }
 
+  /*
+   * Find the data downwards from the node specified
+   */  
+  public static <T> boolean findData(BTNodeWithParent<T> root, T data) {
+    if (root == null) {
+      return false;
+    } else if (root.getData() == data) {
+      return true;
+    } else {
+      return ( findData(root.getLeft(), data) || findData(root.getRight(), data));
+    }    
+  }
+  
+  
+  
   
   
   
