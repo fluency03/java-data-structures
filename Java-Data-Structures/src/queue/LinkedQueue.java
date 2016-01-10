@@ -25,18 +25,31 @@ public class LinkedQueue<T> {
   
   // Enqueue a data into the tail
   public void enqueue(T data) {
-    
-    // TODO
-    
-    
+    ListNode<T> newNode = new ListNode<>(data);
+    if (length == 0) {
+      head = newNode;
+      tail = newNode;
+    } else {
+      tail.setNext(newNode);
+      tail = newNode;
+    }
+    length ++;
   }
   
   // Dequeue a data from the head
   public T dequeue() {
+    if (length == 0) {
+      out.println("The queue is empty!");
+      return null;
+    }
     
-    // TODO
-    
-    
+    ListNode<T> temp = head;
+    head = head.getNext();
+    if (head == null) {
+      tail = null;
+    }
+    length --;
+    return temp.getData();
   }
   
   // Return the head data
