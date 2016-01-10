@@ -7,6 +7,18 @@ package tree;
 
 import static java.lang.System.out;
 
-public class BinaryTree {
+public class BinaryTree<T> {
 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
