@@ -85,12 +85,20 @@ public class LinkedQueue<T> {
   // Convert the queue into a String
   public String toString() {
     String str = "";
+    if (length == 0) {
+      out.println("The list is empty!");
+      return str;
+    }
     
-    // TODO
+    ListNode<T> temp = head;
+    ListNode<T> p;
+    str = str + temp.getData();
+    while ((p = temp.getNext()) != null) {
+      str = str + ", " + p.getData();
+      temp = temp.getNext();
+    }
     
     return str;
   }
-  
-  
-  
+
 }
