@@ -36,7 +36,7 @@ public class CircularSingleList<T> {
   
   // Check Empty
   public boolean isEmpty() {
-    return length == 0;
+    return (length == 0);
   }
   
   // Clear the whole list
