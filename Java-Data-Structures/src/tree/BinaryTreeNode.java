@@ -57,12 +57,12 @@ public class BinaryTreeNode<T> {
   }
   
   // Convert the tree with root of current node into String
-  public String toString() {
+  public String toString(BinaryTreeNode<T> root) {
     String str = "";
-    if (left == null && right == null) {
+    if (root.left == null && root.right == null) {
       str = str + data;
     } else {
-      str = 
+      str = toString(root.left) + data + toString(root.right);
     }
     
     return str;
