@@ -63,7 +63,6 @@ public class BinaryTreeNode<T> {
       str = str + data;
     } else {
       str = toString(root.left) + data + toString(root.right);
-      
     }
     
     return str;
