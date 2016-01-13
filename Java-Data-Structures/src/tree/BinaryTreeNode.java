@@ -28,7 +28,7 @@ public class BinaryTreeNode<T> {
   public T getData() {
     return data;
   }
-  
+    
   public void setData(T data) {
     this.data = data;
   }
@@ -168,6 +168,16 @@ public class BinaryTreeNode<T> {
     this.setLeft(this.right);
     this.setRight(temp);
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
