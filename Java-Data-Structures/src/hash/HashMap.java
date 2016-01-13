@@ -7,4 +7,17 @@ package hash;
 
 public class HashMap<T> {
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
