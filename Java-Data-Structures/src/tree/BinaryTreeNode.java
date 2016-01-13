@@ -57,12 +57,20 @@ public class BinaryTreeNode<T> {
   }
   
   // Convert the tree with root of current node into String
-  public String toString(BinaryTreeNode<T> root) {
+  public String toString() {
     String str = "";
-    if (root.left == null && root.right == null) {
+    if (left == null && right == null) {
       str = str + data;
     } else {
-      str = toString(root.left) + data + toString(root.right);
+      String left = "";
+      String right = "";
+      if (left != null) {
+        left = getLeft().dataToString();
+      }
+      if (right != null) {
+        right = getRight().dataToString();
+      }
+      str = "(" + left + "," + data + "," + right + ")";
     }
     
     return str;
@@ -84,7 +92,7 @@ public class BinaryTreeNode<T> {
   }
   
   /*
-   * Find the data downwards from the node specified
+   * Find the data rooted from this node
    */  
   public static <T> boolean findData(BinaryTreeNode<T> root, T data) {
     if (root == null) {
@@ -96,14 +104,70 @@ public class BinaryTreeNode<T> {
     }    
   }
   
+  /*
+   * Return the hash code for binary tree root from this node
+   */
+//  public int hashCode() {
+//    TODO
+//  }
   
   
   
   
+  /*
+   * Check the number of the nodes rooted from this node
+   */
+  public int numberOfNodes() {
+    int leftCount = (this.left == null? 0:this.left.numberOfNodes());
+    int rightCount = (this.right == null? 0:this.right.numberOfNodes());
+    return (1 + leftCount + rightCount);
+  }
   
   
+  /*
+   * Return a new node as same as this node
+   */
+  public BinaryTreeNode<T> copy() {
+    BinaryTreeNode<T> left = null;
+    BinaryTreeNode<T> right = null;
+    if (this.left != null) {
+      left = this.left.copy();
+    }
+    if (this.right != null) {
+      right = this.right.copy();
+    }
+    return new BinaryTreeNode<T>(this.data, left, right);
+  }
   
+  /*
+   * Reverse the binary tree rooted from this node to a new tree
+   */
+  public BinaryTreeNode<T> reverse() {
+    BinaryTreeNode<T> left = null;
+    BinaryTreeNode<T> right = null;
+    if (this.left != null) {
+      left = this.left.reverse();
+    }
+    if (this.right != null) {
+      right = this.right.reverse();
+    }
+    return new BinaryTreeNode<T>(this.data, right, left);
+  }
   
+  /*
+   * Reverse the binary tree rooted from this node by revising original tree
+   */
+  public void reverseInPlace() {
+    if (this.left != null) {
+      this.left.reverseInPlace();
+    }
+    if (this.right != null) {
+      this.right.reverseInPlace();
+    }
+    BinaryTreeNode<T> temp = this.left;
+    this.setLeft(this.right);
+    this.setRight(temp);
+  }
   
   
   
