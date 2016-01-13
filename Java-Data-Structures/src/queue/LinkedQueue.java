@@ -61,7 +61,7 @@ public class LinkedQueue<T> {
     
     return head.getData();
   }
-  
+  				
   // Return the tail data
   public T getTail() {
     if (length == 0) {
