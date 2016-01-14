@@ -22,7 +22,9 @@ public class CircularDoubleList<T> {
     length = 1;
   }
   
-  // Return the head of list
+  /*
+   *  Return the head of list
+   */
   public DoubleListNode<T> getHead() {
     if (length == 0) {
       out.println("The list is empty");
@@ -30,23 +32,31 @@ public class CircularDoubleList<T> {
     return head;
   }
   
-  // Return the length of list
+  /*
+   *  Return the length of list
+   */
   public int getLength() {
     return length;
   }
   
-  // Check Empty
+  /*
+   *  Check Empty
+   */
   public boolean isEmpty() {
     return (length == 0);
   }
   
-  // Clear the whole list
+  /*
+   *  Clear the whole list
+   */
   public void clearList() {
     head = null;
     length = 0;
   }
   
-  // Look at the data at certain position
+  /*
+   *  Look at the data at certain position
+   */
   public T peekAt(int position) {
     if (position < 0 || position >= length) {
       out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
@@ -65,7 +75,9 @@ public class CircularDoubleList<T> {
     }
   }
   
-  // Return the position of first data appeared.
+  /*
+   *  Return the position of first data appeared.
+   */
   public int getPosition(T data) {
     DoubleListNode<T> temp = head;
     int position = 0;
@@ -83,7 +95,9 @@ public class CircularDoubleList<T> {
       temp = temp.getNext();
     }
     
-    // Return Integer.MIN_VALUE if not found
+    /*
+     *  Return Integer.MIN_VALUE if not found
+     */
     out.println("The data " + data + " is not found!");
     return -1;
     
@@ -94,7 +108,9 @@ public class CircularDoubleList<T> {
    * Insert node with several methods
    * --------------------------------
    */
-  // Insert a node at the front of the list
+  /*
+   *  Insert a node at the front of the list
+   */
   public void insertAtBegin(T data) {
     DoubleListNode<T> newNode = new DoubleListNode<>(data);
     
@@ -113,7 +129,9 @@ public class CircularDoubleList<T> {
     
   }
 
-  // Insert a node at the end of the list
+  /*
+   *  Insert a node at the end of the list
+   */
   public void insertAtEnd(T data) {
     DoubleListNode<T> newNode = new DoubleListNode<>(data);
     
@@ -131,7 +149,9 @@ public class CircularDoubleList<T> {
     
   }
 
-  // Insert a node at certain position 
+  /*
+   *  Insert a node at certain position 
+   */
   public boolean insert(T data, int position) {
     // Check the position
     if (position < 0 || position >= length) {
@@ -167,7 +187,9 @@ public class CircularDoubleList<T> {
    * Remove node with several methods
    * --------------------------------
    */
-  // Remove a node from the beginning of the list
+  /*
+   *  Remove a node from the beginning of the list
+   */
   public T removeFirst() {
     if (length == 0) {
       out.println("Nothing to be removed!");
@@ -187,7 +209,9 @@ public class CircularDoubleList<T> {
     return temp.getData();
   }
   
-  // Remove a node from the end of the list
+  /*
+   *  Remove a node from the end of the list
+   */
   public T removeLast() {
     if (length == 0) {
       out.println("Nothing to be removed!");
@@ -207,10 +231,9 @@ public class CircularDoubleList<T> {
   }
   
   
-  
-  // TODO
-  
-  // Remove a node from certain position
+  /*
+   *  Remove a node from certain position
+   */
   public T removeFrom(int position) {
     if (position < 0 || position >= length) {
       out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
@@ -239,6 +262,9 @@ public class CircularDoubleList<T> {
     }  
   }
   
+  /* 
+   * Convert the list into a String
+   */
   public String toString() {
     String str = "";
     if (length == 0) {
