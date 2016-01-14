@@ -23,7 +23,9 @@ public class LinkedQueue<T> {
     length = 1;
   }
   
-  // Enqueue a data into the tail
+  /*
+   * Enqueue a data into the tail
+   */
   public void enqueue(T data) {
     ListNode<T> newNode = new ListNode<>(data);
     if (length == 0) {
@@ -36,7 +38,9 @@ public class LinkedQueue<T> {
     length ++;
   }
   
-  // Dequeue a data from the head
+  /*
+   * Dequeue a data from the head
+   */
   public T dequeue() {
     if (length == 0) {
       out.println("The queue is empty!");
@@ -52,7 +56,9 @@ public class LinkedQueue<T> {
     return temp.getData();
   }
   
-  // Return the head data
+  /*
+   * Return the head data
+   */
   public T getHead() {
     if (length == 0) {
       out.println("The queue is empty!");
@@ -62,7 +68,9 @@ public class LinkedQueue<T> {
     return head.getData();
   }
   				
-  // Return the tail data
+  /*
+   * Return the tail data
+   */
   public T getTail() {
     if (length == 0) {
       out.println("The queue is empty!");
@@ -72,17 +80,23 @@ public class LinkedQueue<T> {
     return tail.getData();
   }
   
-  // Check whether the queue is empty
+  /*
+   * Check whether the queue is empty
+   */
   public boolean isEmpty() {
     return (length == 0);
   }
   
-  // Return the length of the queue
+  /*
+   * Return the length of the queue
+   */
   public int getLength() {
     return length;
   }
   
-  // Convert the queue into a String
+  /* 
+   * Convert the queue into a String
+   */
   public String toString() {
     String str = "";
     if (length == 0) {
