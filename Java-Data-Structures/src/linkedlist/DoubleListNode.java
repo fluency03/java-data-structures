@@ -23,37 +23,51 @@ public class DoubleListNode<T> {
     this.next = next;
   }
   
-  // Obtain the node's data
+  /*
+   *  Obtain the node's data
+   */
   public T getData(){
     return data;
   }
   
-  // Set the node's data
+  /*
+   *  Set the node's data
+   */
   public void setData(T data) {
     this.data = data;
   }
   
-  // Return the previous node
+  /*
+   *  Return the previous node
+   */
   public DoubleListNode<T> getPrev(){
     return prev;
   }
   
-  // Set previous node
+  /*
+   *  Set previous node
+   */
   public void setPrev(DoubleListNode<T> prev) {
     this.prev = prev;
   }
   
-  // Return the next node
+  /*
+   *  Return the next node
+   */
   public DoubleListNode<T> getNext(){
     return next;
   }
   
-  // Set the next node
+  /*
+   *  Set the next node
+   */
   public void setNext(DoubleListNode<T> next) {
     this.next = next;
   }
   
-  // Convert the data into String
+  /*
+   *  Convert the data into String
+   */
   public String toString() {
     String str = "";
     return str + data;
