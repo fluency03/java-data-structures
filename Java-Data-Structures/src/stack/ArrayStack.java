@@ -80,6 +80,7 @@ public class ArrayStack<T> {
     str = str + array[0];
     while(i <= top) {
     	str = str + ", " + array[i];
+    	i ++;
     }
   	return str;  	
   }
