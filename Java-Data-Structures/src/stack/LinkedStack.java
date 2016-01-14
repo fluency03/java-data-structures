@@ -20,7 +20,9 @@ public class LinkedStack<T> {
     length = 1;
   }
   
-  // Push a data into the top of the stack
+  /*
+   *  Push a data into the top of the stack
+   */
   public void push(T data) {
     ListNode<T> newNode = new ListNode<>(data);
     newNode.setNext(top);
@@ -28,7 +30,9 @@ public class LinkedStack<T> {
     length ++;
   }
   
-  // Pop out the top of the stack
+  /*
+   *  Pop out the top of the stack
+   */
   public T pop() {
     if (length == 0) {
       out.println("The stack is empty!");
@@ -42,7 +46,9 @@ public class LinkedStack<T> {
     return temp.getData();
   }
   
-  // Peek the top of the stack
+  /*
+   *  Peek the top of the stack
+   */
   public T peek() {
     if (length == 0) {
       out.println("The stack is empty!");
@@ -52,17 +58,23 @@ public class LinkedStack<T> {
     return top.getData();
   }
   
-  // Return whether the stack is empty
+  /*
+   *  Return whether the stack is empty
+   */
   public boolean isEmpty() {
     return (length == 0);
   }
   
-  // Get the length of the stack
+  /*
+   *  Get the length of the stack
+   */
   public int getLength() {
     return length;
   }
   
-  // Convert the stack into a String
+  /*
+   *  Convert the stack into a String
+   */
   public String toString() {
     String str = "";
     if (length == 0) {
