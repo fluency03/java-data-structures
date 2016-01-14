@@ -59,29 +59,39 @@ public class BTNodeWithParent<T> {
     this.right = right;
   }
   
-  // Convert the data into String
+  /*
+   *  Convert the data into String
+   */
   public String dataToString() {
     String str = "";
     str = str + data;
     return str;
   }
   
-  // Check whether this node is leaf
+  /*
+   *  Check whether this node is leaf
+   */
   public boolean isLeaf() {
     return (left == null && right == null);
   }
   
-  // Check whether this node is root
+  /*
+   *  Check whether this node is root
+   */
   public boolean isRoot() {
     return (parent == null);
   }
   
-  // Check whether the left is empty
+  /*
+   *  Check whether the left is empty
+   */
   public boolean leftEmpty() {
     return (left == null);
   }
   
-  // Check whether the right is empty
+  /*
+   *  Check whether the right is empty
+   */
   public boolean rightEmpty() {
     return (right == null);
   }
