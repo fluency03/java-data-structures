@@ -51,12 +51,30 @@ public class BTNodeWithParent<T> {
     this.left = left;
   }
   
+  public void insertLeft(BTNodeWithParent<T> left) {
+    left.setLeft(this.getLeft().getLeft());
+    left.setRight(this.getLeft().getRight());
+    left.setParent(this);
+    left.getLeft().setParent(left);
+    left.getRight().setParent(left);
+    this.setLeft(left);
+  }
+  
   public BTNodeWithParent<T> getRight() {
     return right;
   }
   
   public void setRight(BTNodeWithParent<T> right) {
     this.right = right;
+  }
+  
+  public void insertRight(BTNodeWithParent<T> right) {
+    right.setLeft(this.getRight().getLeft());
+    right.setRight(this.getRight().getRight());
+    right.setParent(this);
+    right.getLeft().setParent(right);
+    right.getRight().setParent(right);
+    this.setRight(right);
   }
   
   /*
