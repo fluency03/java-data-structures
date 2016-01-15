@@ -41,12 +41,24 @@ public class BinaryTreeNode<T> {
     this.left = left;
   }
   
+  public void insertLeft(BinaryTreeNode<T> left) {
+    left.setLeft(this.getLeft().getLeft());
+    left.setRight(this.getLeft().getRight());
+    this.setLeft(left);
+  }
+  
   public BinaryTreeNode<T> getRight() {
     return right;
   }
   
   public void setRight(BinaryTreeNode<T> right) {
     this.right = right;
+  }
+  
+  public void insertRight(BinaryTreeNode<T> right) {
+    right.setLeft(this.getRight().getLeft());
+    right.setRight(this.getRight().getRight());
+    this.setRight(right);
   }
   
   /*
