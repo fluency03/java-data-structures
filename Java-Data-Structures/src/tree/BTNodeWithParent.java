@@ -69,6 +69,28 @@ public class BTNodeWithParent<T> {
   }
   
   /*
+   *  Convert the tree with root of current node into String
+   */
+  public String toString() {
+    String str = "";
+    if (left == null && right == null) {
+      str = str + data;
+    } else {
+      String left = "";
+      String right = "";
+      if (left != null) {
+        left = getLeft().dataToString();
+      }
+      if (right != null) {
+        right = getRight().dataToString();
+      }
+      str = "(" + left + "," + data + "," + right + ")";
+    }
+    
+    return str;
+  }
+  
+  /*
    *  Check whether this node is leaf
    */
   public boolean isLeaf() {
@@ -109,6 +131,13 @@ public class BTNodeWithParent<T> {
     }    
   }
   
+  
+  /*
+   * Return the hash code for binary tree root from this node
+   */
+//  public int hashCode() {
+//    TODO
+//  }
   
   
   
