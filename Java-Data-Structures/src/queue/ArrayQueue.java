@@ -92,7 +92,11 @@ public class ArrayQueue<T> {
   public String toString() {
     String str = "";
 
-    // TODO
+    int count = head;
+    while (array[count] != null) {
+      str = str + array[count];
+      count = (++count) % array.length;
+    }
     
     return str;
   }
