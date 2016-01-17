@@ -124,6 +124,7 @@ public class HashMap<K, V>
   
   
   /**
+   * TODO
    * According to source code: 
    * Initialization hook for subclasses. This method is called
    * in all constructors and pseudo-constructors (clone, readObject)
@@ -133,8 +134,8 @@ public class HashMap<K, V>
    */
   void init() { }
   
-  
   /**
+   * TODO
    * According to the source
    * Applies a supplemental hash function to a given hashCode, which
    * defends against poor quality hash functions.  This is critical
@@ -148,21 +149,157 @@ public class HashMap<K, V>
     // number of collisions (approximately 8 at default load factor).
     h ^= (h >>> 20) ^ (h >>> 12);
     return h ^ (h >>> 7) ^ (h >>> 4);
-}
+  }
+  
+  /*
+   * Calculate the index of hash code h
+   */
+  static int indexFor(int h, int length) {
+    return (h & (length - 1));
+  }
+  
+  /*
+   * Returns the number of key-value mappings in this map.
+   */
+  public int getSize() {
+    return size;
+  }
+  
+  /*
+   * Check empty
+   */
+  public boolean isEmpty() {
+    return (size == 0);
+  }
+  
+  /*
+   * Get the value of certain key
+   */
+  public V getValue(Object key) {
+    if (key == null) {
+      return getForNullKey();
+    }
+    
+    // Get the hash code of the key
+    int hash = hash(key.hashCode());
+    for (Entry<K, V> e = table[indexFor(hash, table.length)];
+         e != null;
+         e = e.next) {
+      Object k;
+      if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
+        return e.value;
+      } 
+    }
+    return null;
+  }
+  
+  /* 
+   * Return the value if key==null
+   * And store it at table[0]
+   */
+  private V getForNullKey() {
+    for (Entry<K, V> e = table[0]; e != null; e = e.next) {
+      if (e.key == null) {
+        return e.value;
+      }
+    }
+    return null;
+  }
   
   
   
   
+  // TODO
   
   
   
-  
+  /*
+   * Class: Entry, Singly Linked List
+   * implements APIs from Map.Entry, e.g., getKey(), getValue(), setValue(V value), equals(Object o), hashCode()
+   */
+  static class Entry<K, V> implements Map.Entry<K, V> {
+    final K key; 
+    // TODO why final?
+    V value;
+    Entry<K, V> next;
+    final int hash;
+    
+    Entry(int h, K k, V v, Entry<K, V> n) {
+      hash = h;
+      value = v;
+      key = k;
+      next = n;
+    }
+    
+    public final K getKey() {
+      return key;
+    }
+    
+    public final V getValue() {
+      return value;
+    }
+    
+    public final V setValue(V newValue) {
+      V oldValue = value;
+      value = newValue;
+      return oldValue;
+    }
+    
+    /*
+     * Check whether two Entry are equal
+     * Check both key and value
+     */
+    public final boolean equals(Object o) {
+      if (!(o instanceof Map.Entry)) {
+        return false;
+      }
+      
+      Map.Entry e = (Map.Entry)o;
+      Object k1 = getClass();
+      Object k2 = e.getKey();
+      if (k1 == k2 || (k1 != null) && k1.equals(k2)) {
+        Object v1 = getValue();
+        Object v2 = e.getValue();
+        if (v1 == v2 || (v1 != null) && v1.equals(v2)) {
+          return true;
+        }
+      }
+      return false;
+    }
+    
+    /*
+     * hash code generate
+     */
+    public final int hashCode() {
+      return (key == null   ? 0 : key.hashCode()) ^ 
+             (value == null ? 0: value.hashCode());
+    }
+    
+    public String toString() {
+      return (getKey() + "" + getValue());
+    }
+    
+    /**
+     * According to the source: 
+     * This method is invoked whenever the value in an entry is
+     * overwritten by an invocation of put(k,v) for a key k that's already
+     * in the HashMap.
+     */
+    void recordAccess(HashMap<K,V> m) { }
+    
+    /**
+     * According to the source: 
+     * This method is invoked whenever the entry is
+     * removed from the table.
+     */
+    void recordRemoval(HashMap<K,V> m) { }
+  }
   
   
   
 	
 	
-	
+  // TODO
 	
 	
 }
