@@ -91,7 +91,7 @@ public class HashMap<K, V>
     // creat Entry
     table = new Entry[capacity];
     
-     init(); 
+    init(); 
   }
 	
   /*
@@ -114,7 +114,7 @@ public class HashMap<K, V>
     // creat a new table
     table = new Entry[DEFAULT_INITIAL_CAPACITY];
     
-     init(); 
+    init(); 
   }
   
   /*
@@ -177,7 +177,7 @@ public class HashMap<K, V>
    */
   public V getValue(Object key) {
     if (key == null) {
-      return getForNullKey();
+      return getValueForNullKey();
     }
     
     // Get the hash code of the key
@@ -185,9 +185,9 @@ public class HashMap<K, V>
     for (Entry<K, V> e = table[indexFor(hash, table.length)];
          e != null;
          e = e.next) {
-      Object k;
-      if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
-        return e.value;
+        Object k;
+        if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
+          return e.value;
       } 
     }
     return null;
@@ -195,14 +195,100 @@ public class HashMap<K, V>
   
   /* 
    * Return the value if key==null
-   * And store it at table[0]
+   * HashMap will store key of null at table[0]！
    */
-  private V getForNullKey() {
+  private V getValueForNullKey() {
     for (Entry<K, V> e = table[0]; e != null; e = e.next) {
       if (e.key == null) {
         return e.value;
       }
     }
+    return null;
+  }
+  
+  /*
+   * Check whether the HashMap contains a certain key
+   */
+  public boolean containsKey(Object key) {
+    return (getEntry(key) != null);
+  }
+  
+  /*
+   * Get the pair of certain key
+   */
+  final Entry<K, V> getEntry(Object key) {
+    /*
+     *  Get hash code
+     *  If key == null, which stored at table[0], set the hash to 0;
+     *  If key != null, calculate the hash code using hash function
+     */
+    int hash = (key == null) ? 0 : hash(key.hashCode());
+    
+    // at the linked list regarding above hash, and check the e.key == key
+    for (Entry<K, V> e = table[indexFor(hash, table.length)];
+         e != null;
+         e = e.next
+        ) {
+        Object k;
+        if (e.hash == hash && 
+            ((k = e.key) == key || (key != null && key.equals(k) ))) {
+          // TODO check the condition once more
+            return e;
+      }
+    }
+    return null;
+  }
+  
+  /*
+   * Put a pair of key-value into the HashMap
+   * If the key is not existing, return null finally;
+   * If the key is existing, return the old value under this key
+   */
+  public V put(K key, V value) {
+    // if key == null, put it at table[0]
+    if (key == null) {
+      putForNullKey(value);
+    }
+    
+    // if key != null, calculate the hash code
+    int hash = hash(key.hashCode());
+    int i = indexFor(hash, table.length);
+    for (Entry<K, V> e = table[i]; e != null; e = e.next) {
+      Object k;
+      // If the key is existing, return the old value under this key
+      if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {
+        V oldValue = e.value;
+        e.value = value;
+        e.recordAccess(this);
+        return oldValue;
+      }
+    }
+    
+    // If the key is not existing, return null finally
+    modCount ++;
+    addEntry(hash, key, value, i);
+    return null;
+  }
+  
+  
+  
+  /*
+   * Put a pair of key-value into the HashTable
+   * where key == null and put it into table[0]
+   */
+  private V putForNullKey(V value) {
+    for (Entry<K, V> e = table[0]; e != null; e = e.next) {
+      if (e.key == null) {
+        V oldValue = e.value;
+        e.value = value;
+        e.recordAccess(this);
+        return oldValue;
+      }
+    }
+    // If the key is not existing, return null finally
+    // will not be executed
+    modCount ++;
+    addEntry(0, null, value, 0);
     return null;
   }
   
@@ -295,11 +381,48 @@ public class HashMap<K, V>
     void recordRemoval(HashMap<K,V> m) { }
   }
   
-  
-  
+  /*
+   * Add a new Entry, with a new key-value pair and index
+   */
+  void addEntry(int hash, K key, V value, int index) {
+    
+    
+    
+    
+  }
 	
+  /*
+   * Create a new Entry, with a new key-value pair and index
+   * (i) addEntry() normally used when adding new Entry could lead to be over threshold
+   * (ii) createEntry() normally used when adding new Entry will not lead to be over threshold
+   */
+  void creatEntry(int hash, K key, V value, int index) {
+    
+    
+    
+    
+    
+    
+  }
+  
+  
+  
+  
+  
+  
+  
+  
 	
   // TODO
-	
-	
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
