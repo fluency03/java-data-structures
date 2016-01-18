@@ -10,8 +10,10 @@ import java.util.AbstractCollection;
 import java.util.AbstractMap;
 import java.util.AbstractSet;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.io.*;
 
@@ -636,6 +638,89 @@ public class HashMap<K, V>
    */
   
   
+  /*
+   * The abstract super class for the following three classes:
+   * KeyIterator, ValueIterator, EntryIterator
+   */
+  private abstract class HashIterator<E> implements Iterator<E> {
+    Entry<K, V> next;
+    
+    // good for fast-fail ? TODO
+    int expectedModCount;
+    // current index
+    int index;
+    // current element
+    Entry<K, V> current;
+    
+    HashIterator() {
+      expectedModCount = modCount;
+      // TODO
+      
+      
+      
+      
+    }
+    
+    public final boolean hasNext() {
+      return (next != null);
+    }
+    
+    final Entry<K, V> nextEntry() {
+      if (modCount != expectedModCount) {
+        throw new ConcurrentModificationException();
+      }
+      
+      Entry<K, V> e = next;
+      if (e == null) {
+        throw new NoSuchElementException();
+      }
+      
+      // If the next is not null, then point to next
+      // If next is null, then point to next linked list
+      if ((next = e.next) == null) {
+        Entry[] t = table;
+        while (index < t.length && (next = t[index++]) == null)
+          ;
+      }
+      current = e;
+      return e;
+    }
+    
+    public void remove() {
+      
+      // TODO
+
+    }
+  }
+  
+  
+  
+  /*
+   * Iterator of values
+   */
+  private final class ValueIterator extends HashIterator<V> {
+    public V next() {
+      return nextEntry().value;
+    }
+  }
+  
+  /*
+   * Iterator of keys
+   */
+  private final class KeyIterator extends HashIterator<K> {
+    public K next() {
+      return nextEntry().getKey();
+    }
+  }
+  
+  /*
+   * Iterator of Entry
+   */
+  private final class EntryIterator extends HashIterator<Map.Entry<K, V>> {
+    public Map.Entry<K, V> next() {
+      return nextEntry();
+    }
+  }
   
   
   /* ------------------
