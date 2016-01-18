@@ -19,7 +19,8 @@ import java.io.*;
 
 public class HashMap<K, V> 
   extends AbstractMap<K, V>
-  implements Map<K, V>, Cloneable, Serializable
+//  implements Map<K, V>, 
+  implements Cloneable, Serializable
 {
   /*
    *  Default value of capacity, which should be the power of 2. 
@@ -632,12 +633,6 @@ public class HashMap<K, V>
   }
   
   
-  /* ------------------
-   * TODO: HashIterator
-   * ------------------
-   */
-  
-  
   /*
    * The abstract super class for the following three classes:
    * KeyIterator, ValueIterator, EntryIterator
@@ -694,7 +689,6 @@ public class HashMap<K, V>
   }
   
   
-  
   /*
    * Iterator of values
    */
@@ -722,12 +716,26 @@ public class HashMap<K, V>
     }
   }
   
-  
-  /* ------------------
-   * TODO: HashIterator
-   * ------------------
+  /*
+   * Return a new key iterator
    */
+  Iterator<K> newKeyIterator() {
+    return new KeyIterator();
+  }
+
+  /*
+   * Return a new key iterator
+   */
+  Iterator<V> newValueIterator() {
+    return new ValueIterator();
+  }
   
+  /*
+   * Return a new key iterator
+   */
+  Iterator<Map.Entry<K, V>> newEntryIterator() {
+    return new EntryIterator();
+  }
   
   
   /*
@@ -739,8 +747,8 @@ public class HashMap<K, V>
    * Return the set of key
    */
   public Set<K> keySet() {
-    Set<K> ks = keySet;
-    return (ks != null ? ks : (keySet = new KeySet())); 
+    Set<K> ks = super.keySet;
+    return (ks != null ? ks : (super.keySet = new KeySet())); 
   }
   
   /*
