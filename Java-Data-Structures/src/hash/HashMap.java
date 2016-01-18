@@ -293,6 +293,37 @@ public class HashMap<K, V>
   }
   
   
+  /*
+   * Resahpe the size of the table regarding capacity
+   */
+  void resize(int newCapacity) {
+    Entry[] oldTable = table;
+    int oldCapacity = oldTable.length;
+    if (oldCapacity == MAXIMUM_CAPACITY) {
+      threshold = Integer.MAX_VALUE;
+      return;
+    }
+    
+    // Create a new table
+    // and cope all old elements into the new one
+    Entry[] newTable = new Entry[newCapacity];
+    transfer(newTable);
+    table = newTable;
+    threshold = (int)(newCapacity * loadFactor);
+  }
+  
+  /*
+   * transfer the old elements into new table
+   */
+  void transfer(Entry[] newTable) {
+    
+    
+    
+    
+    
+    
+  }
+  
   
   
   // TODO
@@ -385,10 +416,16 @@ public class HashMap<K, V>
    * Add a new Entry, with a new key-value pair and index
    */
   void addEntry(int hash, K key, V value, int index) {
-    
-    
-    
-    
+    // store the current Entry @index into temporal value e
+    Entry<K, V> e = table[index];
+    // create a new Entry into the position @index
+    // and set the e as the next
+    table[index] = new Entry<K,V>(hash, key, value, e);
+   
+    // Check if the threshold is overed. 
+    if (size++ >= threshold) {
+      resize(2 * table.length);
+    }
   }
 	
   /*
@@ -397,12 +434,12 @@ public class HashMap<K, V>
    * (ii) createEntry() normally used when adding new Entry will not lead to be over threshold
    */
   void creatEntry(int hash, K key, V value, int index) {
-    
-    
-    
-    
-    
-    
+    // store the current Entry @index into temporal value e
+    Entry<K, V> e = table[index];
+    // create a new Entry into the position @index
+    // and set the e as the next
+    table[index] = new Entry<K,V>(hash, key, value, e);
+    size ++;
   }
   
   
