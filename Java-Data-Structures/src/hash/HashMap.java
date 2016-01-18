@@ -6,8 +6,13 @@
 package hash;
 
 import java.io.Serializable;
+import java.util.AbstractCollection;
 import java.util.AbstractMap;
+import java.util.AbstractSet;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 import java.io.*;
 
 public class HashMap<K, V> 
@@ -270,8 +275,7 @@ public class HashMap<K, V>
     return null;
   }
   
-  
-  
+
   /*
    * Put a pair of key-value into the HashTable
    * where key == null and put it into table[0]
@@ -286,12 +290,33 @@ public class HashMap<K, V>
       }
     }
     // If the key is not existing, return null finally
-    // will not be executed
+    // The following code will not be executed
     modCount ++;
     addEntry(0, null, value, 0);
     return null;
   }
   
+  /*
+   * Put method when creating HashMap
+   * internal method, instead of put() which is external method
+   */
+  private void putForCreat(K key, V value) {
+    
+    // TODO
+
+  }
+  
+  /*
+   * Put all elements of Map m into this
+   * Used for creating new map
+   * internal method, instead of putAll() which is external method
+   */
+  private void putAllForCreate(Map<? extends K, ? extends V> m) {
+    
+    // TODO
+
+  }
+
   
   /*
    * Resahpe the size of the table regarding capacity
@@ -307,7 +332,7 @@ public class HashMap<K, V>
     // Create a new table
     // and cope all old elements into the new one
     Entry[] newTable = new Entry[newCapacity];
-    transfer(newTable);
+    transferTo(newTable);
     table = newTable;
     threshold = (int)(newCapacity * loadFactor);
   }
@@ -315,20 +340,182 @@ public class HashMap<K, V>
   /*
    * transfer the old elements into new table
    */
-  void transfer(Entry[] newTable) {
-    
-    
-    
-    
-    
+  void transferTo(Entry[] newTable) {
+    Entry[] src = table;
+    int newCapacity = newTable.length;
+    for (int j = 0; j < src.length; j++) {
+      Entry<K, V> e = src[j];
+      if (e != null) {
+        src[j] = null;
+        do {
+          Entry<K, V> next = e.next;
+          int i = indexFor(e.hash, newCapacity);
+          e.next = newTable[i];
+          newTable[i] = e;
+          e = next;
+        } while(e != null);
+      }
+    }
+  }
+  
+  /*
+   * Put all elements at m into this 
+   */
+  public void putAll(Map<? extends K, ? extends V> m) {
+  
+  // TODO
     
   }
   
+  /*
+   * Remove the element with certain key
+   * And return the value regarding that key
+   */
+  public V remove(Object key) {
+    Entry<K, V> e = removeEntryForKey(key);
+    return (e == null ? null : e.value);
+  }
+  
+  /*
+   * Remove the element with certain key
+   * And return the Entry regarding that key
+   * (only remove one node, not a whole linked list)
+   */
+  public Entry<K, V> removeEntryForKey(Object key) {
+    // Get the hash code
+    int hash = (key == null) ? 0: hash(key.hashCode());
+    int i = indexFor(hash, table.length);
+    Entry<K, V> prev = table[i];
+    Entry<K, V> e = prev;
+    
+    while (e != null) {
+      Entry<K, V> next = e.next;
+      Object k;
+      if (e.hash == hash && 
+          ((k = e.key) == key || (key != null && key.equals(k)))) {
+            modCount++;
+            size--;
+            if (prev == e) {
+              table[i] = next;
+            } else {
+              prev.next = next;
+            }
+            e.recordRemoval(this);
+            return e;
+      }
+      prev = e;
+      e = next;
+    }
+    return e;
+  }
+  
+  /*
+   * Remove the pair of key-value (a mapping)
+   * And return the Entry regarding that key-value pair
+   * (only remove one node, not a whole linked list)
+   */
+  final Entry<K, V> removeMapping(Object o) {
+    if (!(o instanceof Map.Entry)) {
+      return null;
+    }
+    
+    Entry<K, V> entry = (Entry<K, V>) o;
+    Object key = entry.getKey();
+    int hash = hash(key.hashCode());
+    int i = indexFor(hash, table.length);
+    Entry<K, V> prev = table[i];
+    Entry<K, V> e = prev;
+    
+    while (e != null) {
+      Entry<K, V> next = e.next;
+      if (e.hash == hash && e.equals(entry)) {
+        modCount++;
+        size--;
+        if (prev == e) {
+          table[i] = next;
+        } else {
+          prev.next = next;
+        }
+        e.recordRemoval(this);
+        return e;
+      }
+      prev = e;
+      e = next;
+    }
+    return e;
+  }
+  
+  /*
+   * Clear the HashMap
+   */
+  public void clear() {
+    modCount++;
+    // TODO why do not use table directly
+    Entry[] tab = table;
+    for (int i = 0; i <tab.length; i++) {
+      tab[i] = null;
+    }
+//    table = tab;
+    size = 0;
+  }
+  
+  /*
+   * Check whether this contains certain value
+   */
+  public boolean containsValue(Object value) {
+    if (value == null) {
+      return containsNullValue(value);
+    }
+    
+    Entry[] tab = table;
+    for (int i = 0; i < tab.length; i++) {
+      for (Entry<K, V> e = tab[i]; e != null; e = e.next) {
+        if (value.equals(e.value)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  
+  /*
+   * Check whether this contains value null
+   */
+  public boolean containsNullValue(Object vlaue) {
+    Entry[] tab = table;
+    for (int i = 0; i < tab.length; i++) {
+      for (Entry<K, V> e = tab[i]; e != null; e = e.next) {
+        if (e == null) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   
   
-  // TODO
-  
-  
+  /*
+   * Clone a HashMap, and return an Objact
+   */
+  public Object clone() {
+    HashMap<K, V> result = null;
+    
+    try {
+      result = (HashMap<K,V>)super.clone();
+    } catch(CloneNotSupportedException e) {
+      // assert error
+    }
+
+    result.table = new Entry[table.length];
+    result.entrySet = null;
+    result.modCount = 0;
+    result.size = 0;
+    result.init();
+    result.putAllForCreate(this);
+    
+    return result;
+  }
+
   
   /*
    * Class: Entry, Singly Linked List
@@ -443,23 +630,161 @@ public class HashMap<K, V>
   }
   
   
+  /* ------------------
+   * TODO: HashIterator
+   * ------------------
+   */
+  
+  
+  
+  
+  /* ------------------
+   * TODO: HashIterator
+   * ------------------
+   */
+  
+  
+  
+  /*
+   * Set of Entry
+   */
+  private transient Set<Map.Entry<K, V>> entrySet = null;
+  
+  /*
+   * Return the set of key
+   */
+  public Set<K> keySet() {
+    Set<K> ks = keySet;
+    return (ks != null ? ks : (keySet = new KeySet())); 
+  }
+  
+  /*
+   * Set of keys
+   */
+  private final class KeySet extends AbstractSet<K> {
+    public Iterator<K> iterator() {
+      return newKeyIterator();
+    }
+    
+    public int size() {
+      return size;
+    }
+    
+    public boolean contains(Object o) {
+      return containsKey(o);
+    }
+    
+    public boolean remove(Object o) {
+      return HashMap.this.removeEntryForKey(o) != null;
+    }
+    
+    public void clear() {
+      HashMap.this.clear();
+    }
+  }
+  
+  /*
+   * Return the set of values
+   */
+  public Collection<V> values() {
+    Collection<V> vs = values;
+    return (vs != null ? null : (values = new Values()));
+  }
+  
+  /*
+   * Set of values
+   */
+  private final class Values extends AbstractCollection<V> {
+    public Iterator<V> iterator() {
+      return newValueIterator();
+    }
+    
+    public int size() {
+      return size;
+    }
+    
+    public boolean contains(Object o) {
+      return containsValue(o);
+    }
+    
+    public void clear() {
+      HashMap.this.clear();
+    }
+  }
+  
+  /*
+   * Return the set of Entry, calling private method entrySet0()
+   */
+  public Set<Map.Entry<K, V>> entrySet() {
+    return entrySet0();
+  }
+  
+  /*
+   * Return the set of Entry
+   */
+  private Set<Map.Entry<K, V>> entrySet0() {
+    Set<Map.Entry<K, V>> es = entrySet;
+    return (es != null ? es : (entrySet = new EntrySet()));
+  }
+  
+  /*
+   * EntrySet
+   */
+  private final class EntrySet extends AbstractSet<Map.Entry<K, V>> {
+    public Iterator<Map.Entry<K, V>> iterator() {
+      return newEntryIterator();
+    }
+    
+    public int size() {
+      return size;
+    }
+    
+    public boolean contains(Object o) {
+      if (!(o instanceof Map.Entry)) {
+        return false;
+      }
+      Map.Entry<K, V> e = (Map.Entry<K, V>) o; 
+      Entry<K, V> candidate = getEntry(e.getKey());
+      return (candidate != null && candidate.equals(e));
+    }
+    
+    public boolean remove(Object o) {
+      return removeMapping(o) != null;
+    }
+    
+    public void clear() {
+      HashMap.this.clear();
+    }
+  }
   
   
   
   
   
-  
-	
-  // TODO
+  /* ------------------
+   * TODO: readObject
+   * 
+   * TODO: private static final long serialVersionUID = 362498820763181265L; // What is this? 
+   * 
+   * TODO: writeObject
+   * ------------------
+   */
 
 
   
   
+  /*
+   * Return the capacity
+   */
+  int capacity() {
+    return table.length;
+  }
   
-  
-  
-  
-  
-  
-  
+  /*
+   * Return load factor
+   */
+  float loadFactor() {
+    return loadFactor;
+  }
+
 }
