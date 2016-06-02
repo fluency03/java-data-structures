@@ -163,70 +163,61 @@ public class SinglyLinkedList<T> {
   /*
    *  Remove a node from the begin
    */
-  public T removeFirst() {
+  public T removeFirst() throws DummyNodeException {
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
     }
 
-    ListNode<T> temp = head;
-    head = head.getNext();
+    ListNode<T> temp = head.getNext();
     length --;
-    return temp.getData();
+    return temp.delete();
   }
 
   /*
    *  Remove a node from the end
    */
-  public T removeLast() {
+  public T removeLast() throws DummyNodeException {
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
     }
 
     ListNode<T> temp = head;
-    ListNode<T> next = temp.getNext();
-    ListNode<T> q = temp;
-    if (next == null) {
-      head = null;
-      length --;
-      return temp.getData();
+    if (temp.getNext().getData() == null) {
+      return null;
     } else {
-      while ((next = temp.getNext()) != null)  {
-        q = temp;
-        temp = next;
+      while (temp.getNext().getData() != null)  {
+        temp = temp.getNext();
       }
-      q.setNext(null);
       length --;
-      return temp.getData();
+      return temp.delete();
     }
   }
 
   /*
    *  Remove the node at certain position
    */
-  public T removeFrom(int position) {
+  public T removeAt(int position) throws DummyNodeException {
     if (position < 0 || position >= length) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
     ListNode<T> temp = head;
-    ListNode<T> removedNode = temp.getNext();
+    int index = position;
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
-      head = head.getNext();
       length --;
-      return temp.getData();
+      return temp.delete();
     } else {
-      for (int i=1; i<position; i++){
+      while (index >= 0){
         temp = temp.getNext();
-        removedNode = temp.getNext();
+        index --;
       }
-      temp.setNext(removedNode.getNext());
       length --;
-      return removedNode.getData();
+      return temp.delete();
     }
   }
 
@@ -234,21 +225,20 @@ public class SinglyLinkedList<T> {
    *  Convert the list to String
    */
   public String toString() {
-    String str = "";
+    StringBuffer sBuffer = new StringBuffer("");
     if (length == 0) {
       out.println("The list is empty!");
-      return str;
+      return sBuffer.toString();
     }
 
     ListNode<T> temp = head;
-    ListNode<T> p;
-    str = str + temp.getData();
-    while ((p = temp.getNext()) != null) {
-      str = str + ", " + p.getData();
+    while (temp.getNext().getData() != null) {
+      sBuffer.append(temp.getNext());
+      sBuffer.append(" ");
       temp = temp.getNext();
     }
 
-    return str;
+    return sBuffer.toString();
   }
 
 }
