@@ -109,14 +109,7 @@ public class SinglyLinkedList<T> {
    *  Insert a node at beginning of the list
    */
   public void insertAtBegin(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
-
-    if (length == 0) {
-      head = newNode;
-    } else {
-      newNode.setNext(head);
-      head = newNode;
-    }
+    head.add(data);
     length ++;
   }
 
@@ -124,17 +117,16 @@ public class SinglyLinkedList<T> {
    *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
-
     if (length == 0) {
-      head = newNode;
+      head.add(data);
     } else {
       ListNode<T> temp = head;
-      while (temp.getNext() != null)  {
+      while (temp.getNext().getData() != null)  {
         temp = temp.getNext();
       }
-      temp.setNext(newNode);
+      temp.add(data);
     }
+    
     length ++;
   }
 
