@@ -53,7 +53,7 @@ public class SinglyLinkedList<T> {
   /*
    * Look at the data at certain position
    */
-  public T peekAt(int position) {
+  public T get(int position) {
     if (position < 0 || position >= length) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
@@ -76,7 +76,7 @@ public class SinglyLinkedList<T> {
   /*
    *  Return the position of first data appeared.
    */
-  public int getPosition(T data) {
+  public int indexOf(T data) {
     int position = 0;
 
     if (length == 0) {
