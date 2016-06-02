@@ -5,7 +5,8 @@
 
 package linkedlist;
 
-public class DummyNodeException extends LinkedListException {
+@SuppressWarnings("serial")
+public class DummyNodeException extends Exception {
    public DummyNodeException(String msg){
       super(msg);
    }
