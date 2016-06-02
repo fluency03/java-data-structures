@@ -51,6 +51,13 @@ public class SinglyLinkedList<T> {
   }
 
   /*
+   *  Return the head of list
+   */
+  public T peek() {
+    return head.getNext().getData();
+  }
+
+  /*
    * Look at the data at certain position
    */
   public T get(int position) {
