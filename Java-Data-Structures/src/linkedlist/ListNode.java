@@ -41,6 +41,13 @@ public class ListNode<T> {
   }
 
   /*
+   * Check whether this node is dummy node
+   */
+   public boolean isDummy() {
+     return data == null;
+   }
+
+  /*
    *  Obtain the next node
    */
   public ListNode<T> getNext() {
