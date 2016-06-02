@@ -29,7 +29,7 @@ public class ListNode<T> {
    * Time Complexity: O(1)
    */
   public T delete() throws DummyNodeException {
-    if (data == null) { /* The current node is the last node. */
+    if (isDummy()) { /* The current node is the last node. */
       throw new DummyNodeException("This is a dummy node.");
     }
 
