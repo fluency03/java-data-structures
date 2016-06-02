@@ -62,9 +62,9 @@ public class SinglyLinkedList<T> {
       out.println("The list is empty");
       return null;
     } else {
-      ListNode<T> tempNode = head;
+      ListNode<T> tempNode = head.getNext();
       int index = position;
-      while(index >= 0) {
+      while(index > 0) {
         tempNode = tempNode.getNext();
         index --;
       }
@@ -77,7 +77,6 @@ public class SinglyLinkedList<T> {
    *  Return the position of first data appeared.
    */
   public int getPosition(T data) {
-    ListNode<T> temp = head;
     int position = 0;
 
     if (length == 0) {
@@ -85,17 +84,19 @@ public class SinglyLinkedList<T> {
       return -1;
     }
 
-    while (temp != null) {
-      if (temp.getData() == data) {
-        return position;
-      }
+    ListNode<T> temp = head.getNext();
+    while (temp.getData() != null || temp.getData() != data) {
       position ++;
       temp = temp.getNext();
     }
 
-    // Return Integer.MIN_VALUE if not found
-    out.println("The data " + data + " is not found!");
-    return -1;
+    if (temp.getData() == null) {
+      // Return Integer.MIN_VALUE if not found
+      out.println("The data " + data + " is not found!");
+      return -1;
+    } else {
+      return position;
+    }
 
   }
 
