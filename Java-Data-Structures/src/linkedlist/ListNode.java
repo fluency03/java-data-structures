@@ -34,10 +34,11 @@ public class ListNode<T> {
     }
 
     ListNode<T> nextNode = next;
+    T thisData = data;
     T nextData = nextNode.getData();
     this.setData(nextData);
     this.setNext(nextNode.getNext());
-    return nextData;
+    return thisData;
   }
 
   /*
