@@ -11,16 +11,16 @@ import static java.lang.System.out;
 
 public class SinglyLinkedList<T> implements Iterable<T> {
 
-  // the head of the list, dummy node
-  private ListNode<T> head = new ListNode<>(null);
+  // the head of the list
+  private ListNode<T> head;
   // the tail of the list, dummy node
-  private ListNode<T> tail = new ListNode<>(null);
+  private ListNode<T> dummy = new ListNode<>(null);
   // the length of the list
   private int length = 0;
 
   // @SuppressWarnings("unchecked")
   public SinglyLinkedList() {
-    head.setNext(tail);
+    head = dummy;
   }
 
   /*
@@ -48,7 +48,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Clear the whole list
    */
   public void clearList() {
-    head.setNext(tail);
+    head = dummy;
     length = 0;
   }
 
@@ -56,7 +56,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Return the head of list
    */
   public T peek() {
-    return head.getNext().getData();
+    return head.getData();
   }
 
   /*
@@ -67,13 +67,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
       return null;
     } else {
       ListNode<T> tempNode = head;
       int index = position;
-      while(index >= 0) {
+      while(index > 0) {
         tempNode = tempNode.getNext();
         index --;
       }
@@ -90,12 +90,12 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
     } else {
       ListNode<T> tempNode = head;
       int index = position;
-      while(index >= 0) {
+      while(index > 0) {
         tempNode = tempNode.getNext();
         index --;
       }
@@ -107,22 +107,23 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Return the position of first data appeared.
    */
   public int indexOf(T data) {
-    int position = 0;
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
 
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
       return -1;
     }
 
-    ListNode<T> temp = head.getNext();
-    while (temp.getData() != null || temp.getData() != data) {
+    ListNode<T> temp = head;
+    int position = 0;
+    while (!temp.isDummy() || temp.getData() != data) {
       position ++;
       temp = temp.getNext();
     }
 
-    if (temp.getData() == null) {
-      // Return Integer.MIN_VALUE if not found
-      out.println("The data " + data + " is not found!");
+    if (temp.isDummy()) {
       return -1;
     } else {
       return position;
@@ -134,12 +135,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    * Check whether the linked list contains the specific element
    */
   public boolean contains(T data) {
-    ListNode<T> temp = head.getNext();
-    while (temp.getData() != null || temp.getData() != data) {
-      temp = temp.getNext();
-    }
-
-    if (temp.getData() == null) {
+    if (indexOf(data) == -1) {
       return false;
     } else {
       return true;
@@ -155,7 +151,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Insert a node at beginning of the list
    */
   public void insertAtBegin(T data) {
-    head.add(data);
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
+
+    ListNode<T> newNode = new ListNode<T>(data);
+    newNode.setNext(head);
+    head = newNode;
     length ++;
   }
 
@@ -163,41 +165,51 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    if (length == 0) {
-      head.add(data);
-    } else {
-      ListNode<T> temp = head;
-      while (temp.getNext().getData() != null)  {
-        temp = temp.getNext();
-      }
-      temp.add(data);
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
     }
 
-    length ++;
+    if (isEmpty()) {
+      insertAtBegin(data);
+    } else {
+      ListNode<T> newNode = new ListNode<T>(data);
+      ListNode<T> temp = head;
+      while (!temp.getNext().isDummy())  {
+        temp = temp.getNext();
+      }
+      newNode.setNext(temp.getNext());
+      temp.setNext(newNode);
+      length ++;
+    }
   }
 
   /*
    *  Insert a data at a specified position
    */
-  public void insert(T data, int position) throws IndexOutOfBoundsException {
+  public void insert(T data, int position) {
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
+
     // Check the position
     if (position < 0 || position >= length) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    if (length == 0 || position == 0) {
-      head.add(data);
+    if (isEmpty() || position == 0) {
+      insertAtBegin(data);
     } else {
+      ListNode<T> newNode = new ListNode<T>(data);
       ListNode<T> temp = head;
       int index = position;
-      while(index > 0) {
+      while(index > 1) {
         temp = temp.getNext();
         index --;
       }
-      temp.add(data);
+      newNode.setNext(temp.getNext());
+      temp.setNext(newNode);
+      length ++;
     }
-
-    length ++;
   }
 
 
@@ -209,36 +221,36 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   /*
    *  Remove a node from the begin
    */
-  public T removeFirst() throws DummyNodeException {
-    if (length == 0) {
+  public T removeFirst() {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
     }
 
-    ListNode<T> temp = head.getNext();
+    ListNode<T> temp = head;
+    head = temp.getNext();
     length --;
-    return temp.delete();
+    return temp.getData();
   }
 
   /*
    *  Remove a node from the end
    */
   public T removeLast() throws DummyNodeException {
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
+    } else if (length == 1) {
+      return removeFirst();
     }
 
     ListNode<T> temp = head;
-    if (temp.getNext().getData() == null) {
-      return null;
-    } else {
-      while (temp.getNext().getData() != null)  {
-        temp = temp.getNext();
-      }
-      length --;
-      return temp.delete();
+    while (!temp.getNext().isDummy())  {
+      temp = temp.getNext();
     }
+    length --;
+    return temp.delete();
+
   }
 
   /*
@@ -249,16 +261,15 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    ListNode<T> temp = head;
-    int index = position;
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (position == 0) {
-      length --;
-      return temp.delete();
+    } else if (position == 0 || length == 1) {
+      return removeFirst();
     } else {
-      while (index >= 0){
+      ListNode<T> temp = head;
+      int index = position;
+      while (index > 0){
         temp = temp.getNext();
         index --;
       }
@@ -284,7 +295,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
 
     @Override
     public boolean hasNext() {
-      return tempNode.getNext().getData() != null;
+      return !tempNode.getNext().isDummy();
     }
 
     @Override
@@ -308,14 +319,14 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    */
   public String toString() {
     StringBuffer sBuffer = new StringBuffer("");
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty!");
       return sBuffer.toString();
     }
 
     ListNode<T> temp = head;
-    while (temp.getNext().getData() != null) {
-      sBuffer.append(temp.getNext());
+    while (!temp.isDummy()) {
+      sBuffer.append((String)temp.getData());
       sBuffer.append(" ");
       temp = temp.getNext();
     }
