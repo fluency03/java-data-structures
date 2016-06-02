@@ -29,11 +29,12 @@ public class ListNode<T> {
    * Time Complexity: O(1)
    */
   public T delete() {
-    ListNode<T> nextNode = next;
-    if (nextNode == null) { /* The current node is the last node. */
+    if (data == null) { /* The current node is the last node. */
+      throw new DummyNodeException("This is a dummy node.");
       return null;
     }
 
+    ListNode<T> nextNode = next;
     T nextData = nextNode.getData();
     this.setData(nextData);
     this.setNext(nextNode.getNext());
