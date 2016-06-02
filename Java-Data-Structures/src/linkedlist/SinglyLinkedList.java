@@ -8,26 +8,21 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class SingleLinkedList<T> {
+public class SinglyLinkedList<T> {
 
-  private ListNode<T> head = null; // the head of the list
-  private int length = 0; // the length of the list
+  // the head of the list, dummy node
+  private ListNode<T> head = new ListNode<>(null);
+  // the tail of the list, dummy node
+  private ListNode<T> tail = new ListNode<>(null);
+  // the length of the list
+  private int length = 0;
 
-  public SingleLinkedList() { }
-
-  public SingleLinkedList(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
-    head = newNode;
-    length = 1;
-  }
+  public SinglyLinkedList() { }
 
   /*
    *  Return the head of list
    */
   public ListNode<T> getHead() {
-    if (length == 0) {
-      out.println("The list is empty");
-    }
     return head;
   }
 
@@ -49,7 +44,7 @@ public class SingleLinkedList<T> {
    *  Clear the whole list
    */
   public void clearList() {
-    head = null;
+    head.setNext(tail);
     length = 0;
   }
 
