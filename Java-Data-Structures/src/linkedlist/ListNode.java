@@ -20,8 +20,8 @@ public class ListNode<T> {
    */
   public void add(T data) {
     ListNode<T> newNode = new ListNode<T>(data);
-    newNode.setNext(this.getNext());
-    this.setNext(newNode);
+    newNode.next = this.next;
+    this.next = newNode;
   }
 
   /*
@@ -33,11 +33,10 @@ public class ListNode<T> {
       throw new DummyNodeException("This is a dummy node.");
     }
 
-    ListNode<T> nextNode = next;
-    T thisData = data;
-    T nextData = nextNode.getData();
-    this.setData(nextData);
-    this.setNext(nextNode.getNext());
+    ListNode<T> nextNode = this.next;
+    T thisData = this.data;
+    this.data = nextNode.data;
+    this.next = nextNode.next;
     return thisData;
   }
 
