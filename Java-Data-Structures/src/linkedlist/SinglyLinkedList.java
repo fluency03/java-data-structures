@@ -31,7 +31,7 @@ public class SinglyLinkedList<T> {
   /*
    *  Return the length of list
    */
-  public int getLength() {
+  public int size() {
     return length;
   }
 
