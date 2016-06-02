@@ -164,7 +164,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   /*
    *  Insert a node at the end of the list
    */
-  public void insertAtEnd(T data) {
+  private void insertAtEnd(T data) {
     if (data == null) {
       throw new NullPointerException("The data is null!");
     }
@@ -180,6 +180,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       length ++;
     }
   }
+
+    /*
+     *  Insert a node at the end of the list
+     */
+    public void add(T data) {
+      insertAtEnd(data);
+    }
 
   /*
    *  Insert a data at a specified position
@@ -225,6 +232,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
 
     length --;
     return head.delete();
+  }
+
+  /*
+   *  Remove a node from the begin
+   */
+  public T pop() throws DummyNodeException {
+    return removeFirst();
   }
 
   /*
@@ -319,7 +333,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
 
     ListNode<T> tempNode = head;
     while (!tempNode.isDummy()) {
-      sBuffer.append((String)tempNode.getData());
+      sBuffer.append(tempNode.getData().toString());
       sBuffer.append(" ");
       tempNode = tempNode.getNext();
     }
@@ -331,6 +345,24 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    * Main function
    */
   public static void main(String[] args) {
+    SinglyLinkedList<Integer> testList = new SinglyLinkedList<>();
+
+    try {
+      for (int i=0; i < 20; i++) {
+        testList.add(i);
+      }
+
+      testList.pop();
+
+      out.println(testList.toString());
+
+    } catch (DummyNodeException e) {
+
+    } catch (NullPointerException e) {
+
+    }
+
+
 
   }
 

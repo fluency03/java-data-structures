@@ -12,17 +12,17 @@ import linkedlist.ListNode;
 //import static java.lang.System.out;
 
 public class ArrayQueue<T> {
-	
+
   private T[] array;
   private int head = 0;
   private int tail = 0;
   private boolean full = false;
-  
+
   public ArrayQueue(int size) {
     // @SuppressWarnings("unchecked")
   	array = (T[])new Object[size];
 	}
-  
+
   /*
    * Enqueue a data into the tail
    */
@@ -34,7 +34,7 @@ public class ArrayQueue<T> {
       full = true;
     }
   }
-  
+
   /*
    * Dequeue a data from the head
    */
@@ -49,28 +49,28 @@ public class ArrayQueue<T> {
     head = (++head) % array.length;
     return (removed);
   }
-  
+
   /*
    * Return the head data
    */
   public T getHead() {
     return array[head];
   }
-                
+
   /*
    * Return the tail data
    */
   public T getTail() {
     return array[tail];
   }
-  
+
   /*
    *  Check Empty
    */
   public boolean isEmpty() {
     return ((head == tail) && !full);
   }
-  
+
   /*
    * Return the length of the queue
    */
@@ -85,8 +85,8 @@ public class ArrayQueue<T> {
       return (array.length - head + tail);
     }
   }
-  
-  /* 
+
+  /*
    * Convert the queue into a String
    */
   public String toString() {
@@ -97,32 +97,32 @@ public class ArrayQueue<T> {
       str = str + array[count];
       count = (++count) % array.length;
     }
-    
+
     return str;
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
