@@ -28,10 +28,9 @@ public class ListNode<T> {
    * Delete the next node of current node
    * Time Complexity: O(1)
    */
-  public T delete() {
+  public T delete() throws DummyNodeException {
     if (data == null) { /* The current node is the last node. */
       throw new DummyNodeException("This is a dummy node.");
-      return null;
     }
 
     ListNode<T> nextNode = next;
