@@ -100,6 +100,22 @@ public class SinglyLinkedList<T> {
 
   }
 
+  /*
+   * Check whether the linked list contains the specific element
+   */
+  public boolean contains(T data) {
+    ListNode<T> temp = head.getNext();
+    while (temp.getData() != null || temp.getData() != data) {
+      temp = temp.getNext();
+    }
+
+    if (temp.getData() == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   /**
    * --------------------------------
    * Insert node with several methods
