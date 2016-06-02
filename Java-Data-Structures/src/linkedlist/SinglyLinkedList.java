@@ -17,7 +17,9 @@ public class SinglyLinkedList<T> {
   // the length of the list
   private int length = 0;
 
-  public SinglyLinkedList() { }
+  public SinglyLinkedList() {
+    head.setNext(tail);
+  }
 
   /*
    *  Return the head of list
@@ -37,7 +39,7 @@ public class SinglyLinkedList<T> {
    *  Check Empty
    */
   public boolean isEmpty() {
-    return (length == 0);
+    return length == 0;
   }
 
   /*
@@ -53,19 +55,21 @@ public class SinglyLinkedList<T> {
    */
   public T peekAt(int position) {
     if (position < 0 || position >= length) {
-      out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
-      return null;
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
     if (length == 0) {
       out.println("The list is empty");
       return null;
     } else {
-      ListNode<T> temp = head;
-      for (int i=0; i<position; i++) {
-        temp = temp.getNext();
+      ListNode<T> tempNode = head;
+      int index = position;
+      while(index >= 0) {
+        tempNode = tempNode.getNext();
+        index --;
       }
-      return temp.getData();
+
+      return tempNode.getData();
     }
   }
 
@@ -136,11 +140,10 @@ public class SinglyLinkedList<T> {
   /*
    *  Insert a data at a specified position
    */
-  public boolean insert(T data, int position ) {
+  public boolean insert(T data, int position) throws IndexOutOfBoundsException {
     // Check the position
     if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
-      return false;
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
     ListNode<T> newNode = new ListNode<>(data);
@@ -215,8 +218,7 @@ public class SinglyLinkedList<T> {
    */
   public T removeFrom(int position) {
     if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
-      return null;
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
     ListNode<T> temp = head;
