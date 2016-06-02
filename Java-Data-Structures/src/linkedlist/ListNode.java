@@ -8,9 +8,7 @@ package linkedlist;
 public class ListNode<T> {
 
   private ListNode<T> next = null;
-  private T data = null;
-
-  public ListNode() { }
+  private T data;
 
   public ListNode(T data) {
     this.data = data;
