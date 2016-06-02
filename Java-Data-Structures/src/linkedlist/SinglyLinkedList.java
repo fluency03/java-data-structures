@@ -6,9 +6,10 @@
 
 package linkedlist;
 
+import java.util.Iterator;
 import static java.lang.System.out;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T> implements Iterable<T> {
 
   // the head of the list, dummy node
   private ListNode<T> head = new ListNode<>(null);
@@ -17,6 +18,7 @@ public class SinglyLinkedList<T> {
   // the length of the list
   private int length = 0;
 
+  // @SuppressWarnings("unchecked")
   public SinglyLinkedList() {
     head.setNext(tail);
   }
@@ -262,6 +264,42 @@ public class SinglyLinkedList<T> {
       }
       length --;
       return temp.delete();
+    }
+  }
+
+  /*
+   * Return the iterator()
+   */
+  @Override
+  public Iterator<T> iterator() {
+    return new LinkedListIterator();
+  }
+
+  /**
+   * Iterable implementation
+   */
+  private class LinkedListIterator implements Iterator<T> {
+
+    private ListNode<T> tempNode = head;
+
+    @Override
+    public boolean hasNext() {
+      return tempNode.getNext().getData() != null;
+    }
+
+    @Override
+    public T next() {
+      if (hasNext()) {
+        tempNode = tempNode.getNext();
+        return tempNode.getData();
+      } else {
+        return null;
+      }
+    }
+
+    @Override
+    public void remove() {
+       throw new UnsupportedOperationException();
     }
   }
 
