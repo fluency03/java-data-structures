@@ -22,7 +22,7 @@ public class ListNode<T> {
    */
   public void add(T data) {
     ListNode<T> newNode = new ListNode<T>(data);
-    newNode.setNext(this.getNext().getNext());
+    newNode.setNext(this.getNext());
     this.setNext(newNode);
   }
 
@@ -32,9 +32,13 @@ public class ListNode<T> {
    */
   public T delete() {
     ListNode<T> nextNode = next;
+    if (nextNode == null) { /* The current node is the last node. */
+      return null;
+    }
+
     T nextData = nextNode.getData();
     this.setData(nextData);
-    this.setNext(this.getNext().getNext());
+    this.setNext(nextNode.getNext());
     return nextData;
   }
 
