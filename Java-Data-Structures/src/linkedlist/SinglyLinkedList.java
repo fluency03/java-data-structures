@@ -116,14 +116,14 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       return -1;
     }
 
-    ListNode<T> temp = head;
+    ListNode<T> tempNode = head;
     int position = 0;
-    while (!temp.isDummy() || temp.getData() != data) {
+    while (!tempNode.isDummy() || tempNode.getData() != data) {
       position ++;
-      temp = temp.getNext();
+      tempNode = tempNode.getNext();
     }
 
-    if (temp.isDummy()) {
+    if (tempNode.isDummy()) {
       return -1;
     } else {
       return position;
@@ -172,13 +172,11 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     if (isEmpty()) {
       insertAtBegin(data);
     } else {
-      ListNode<T> newNode = new ListNode<T>(data);
-      ListNode<T> temp = head;
-      while (!temp.getNext().isDummy())  {
-        temp = temp.getNext();
+      ListNode<T> tempNode = head;
+      while (!tempNode.getNext().isDummy())  {
+        tempNode = tempNode.getNext();
       }
-      newNode.setNext(temp.getNext());
-      temp.setNext(newNode);
+      tempNode.add(data);
       length ++;
     }
   }
@@ -199,15 +197,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     if (isEmpty() || position == 0) {
       insertAtBegin(data);
     } else {
-      ListNode<T> newNode = new ListNode<T>(data);
-      ListNode<T> temp = head;
+      ListNode<T> tempNode = head;
       int index = position;
       while(index > 1) {
-        temp = temp.getNext();
+        tempNode = tempNode.getNext();
         index --;
       }
-      newNode.setNext(temp.getNext());
-      temp.setNext(newNode);
+      tempNode.add(data);
       length ++;
     }
   }
@@ -221,16 +217,14 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   /*
    *  Remove a node from the begin
    */
-  public T removeFirst() {
+  public T removeFirst() throws DummyNodeException {
     if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
     }
 
-    ListNode<T> temp = head;
-    head = temp.getNext();
     length --;
-    return temp.getData();
+    return head.delete();
   }
 
   /*
@@ -244,13 +238,12 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       return removeFirst();
     }
 
-    ListNode<T> temp = head;
-    while (!temp.getNext().isDummy())  {
-      temp = temp.getNext();
+    ListNode<T> tempNode = head;
+    while (!tempNode.getNext().isDummy())  {
+      tempNode = tempNode.getNext();
     }
     length --;
-    return temp.delete();
-
+    return tempNode.delete();
   }
 
   /*
@@ -267,14 +260,14 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     } else if (position == 0 || length == 1) {
       return removeFirst();
     } else {
-      ListNode<T> temp = head;
+      ListNode<T> tempNode = head;
       int index = position;
       while (index > 0){
-        temp = temp.getNext();
+        tempNode = tempNode.getNext();
         index --;
       }
       length --;
-      return temp.delete();
+      return tempNode.delete();
     }
   }
 
@@ -324,14 +317,21 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       return sBuffer.toString();
     }
 
-    ListNode<T> temp = head;
-    while (!temp.isDummy()) {
-      sBuffer.append((String)temp.getData());
+    ListNode<T> tempNode = head;
+    while (!tempNode.isDummy()) {
+      sBuffer.append((String)tempNode.getData());
       sBuffer.append(" ");
-      temp = temp.getNext();
+      tempNode = tempNode.getNext();
     }
 
     return sBuffer.toString();
+  }
+
+  /**
+   * Main function
+   */
+  public static void main(String[] args) {
+
   }
 
 }
