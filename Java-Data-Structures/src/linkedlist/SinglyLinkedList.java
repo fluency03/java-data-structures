@@ -81,6 +81,27 @@ public class SinglyLinkedList<T> {
   }
 
   /*
+   * Set at the data at certain position
+   */
+  public void set(int position, T data) {
+    if (position < 0 || position >= length) {
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
+    }
+
+    if (length == 0) {
+      out.println("The list is empty");
+    } else {
+      ListNode<T> tempNode = head;
+      int index = position;
+      while(index >= 0) {
+        tempNode = tempNode.getNext();
+        index --;
+      }
+      tempNode.setData(data);
+    }
+  }
+
+  /*
    *  Return the position of first data appeared.
    */
   public int indexOf(T data) {
