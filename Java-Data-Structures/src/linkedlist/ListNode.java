@@ -16,9 +16,26 @@ public class ListNode<T> {
     this.data = data;
   }
 
-  public ListNode(T data, ListNode<T> next) {
-    this.data = data;
-    this.next = next;
+  /*
+   * Add a new node after the current node
+   * Time Complexity: O(1)
+   */
+  public void add(T data) {
+    ListNode<T> newNode = new ListNode<T>(data);
+    newNode.setNext(this.getNext().getNext());
+    this.setNext(newNode);
+  }
+
+  /*
+   * Delete the next node of current node
+   * Time Complexity: O(1)
+   */
+  public T delete() {
+    ListNode<T> nextNode = next;
+    T nextData = nextNode.getData();
+    this.setData(nextData);
+    this.setNext(this.getNext().getNext());
+    return nextData;
   }
 
   /*
