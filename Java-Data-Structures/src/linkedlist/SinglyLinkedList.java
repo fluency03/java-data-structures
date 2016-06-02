@@ -62,9 +62,9 @@ public class SinglyLinkedList<T> {
       out.println("The list is empty");
       return null;
     } else {
-      ListNode<T> tempNode = head.getNext();
+      ListNode<T> tempNode = head;
       int index = position;
-      while(index > 0) {
+      while(index >= 0) {
         tempNode = tempNode.getNext();
         index --;
       }
@@ -126,36 +126,32 @@ public class SinglyLinkedList<T> {
       }
       temp.add(data);
     }
-    
+
     length ++;
   }
 
   /*
    *  Insert a data at a specified position
    */
-  public boolean insert(T data, int position) throws IndexOutOfBoundsException {
+  public void insert(T data, int position) throws IndexOutOfBoundsException {
     // Check the position
     if (position < 0 || position >= length) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    ListNode<T> newNode = new ListNode<>(data);
-    if (length == 0) {
-      head = newNode;
-    } else if (position == 0) {
-      newNode.setNext(head);
-      head = newNode;
+    if (length == 0 || position == 0) {
+      head.add(data);
     } else {
       ListNode<T> temp = head;
-      for (int i=1; i<position; i++) {
+      int index = position;
+      while(index > 0) {
         temp = temp.getNext();
+        index --;
       }
-      newNode.setNext(temp.getNext());
-      temp.setNext(newNode);
+      temp.add(data);
     }
 
     length ++;
-    return true;
   }
 
 
