@@ -46,7 +46,7 @@ public class ListNode<T> {
       this.next = nextNode.next;
       return thisData;
     } else {
-      throw new DummyNodeException("Next is null.");
+      throw new UnsupportedOperationException("Next is null.");
     }
   }
 

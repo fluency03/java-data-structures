@@ -7,7 +7,7 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class CircularSinglyLinkedList<T> extends LinkedList<T> {
+public class CircularSinglyLinkedList<T> extends SinglyLinkedList<T> {
 
   public CircularSinglyLinkedList() {
     super();
@@ -17,6 +17,7 @@ public class CircularSinglyLinkedList<T> extends LinkedList<T> {
   /*
    *  Clear the whole list
    */
+  @Override
   public void clearList() {
     head = dummy;
     dummy.setNext(dummy);
@@ -26,6 +27,7 @@ public class CircularSinglyLinkedList<T> extends LinkedList<T> {
   /*
    *  Insert a node at beginning of the list
    */
+  @Override
   public void insertAtBegin(T data) {
     if (data == null) {
       throw new NullPointerException("The data is null!");
@@ -41,6 +43,7 @@ public class CircularSinglyLinkedList<T> extends LinkedList<T> {
   /*
    *  Remove a node from the begin
    */
+  @Override
   public T removeFirst() throws DummyNodeException {
     if (isEmpty()) {
       return null;
