@@ -9,14 +9,10 @@ package linkedlist;
 import java.util.Iterator;
 import static java.lang.System.out;
 
-public class SinglyLinkedList<T> implements Iterable<T> {
+public class SinglyLinkedList<T>  extends LinkedList<T> implements Iterable<T>{
 
-  // the head of the list
-  private ListNode<T> head;
   // the tail of the list, dummy node
   private ListNode<T> dummy = new ListNode<T>();
-  // the size of the list
-  private int size = 0;
 
   // @SuppressWarnings("unchecked")
   public SinglyLinkedList() {
@@ -25,45 +21,11 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   }
 
   /*
-   *  Return the head of list
-   */
-  public ListNode<T> getHead() {
-    if (isEmpty()) {
-      out.println("The list is empty");
-    }
-    return head;
-  }
-
-  /*
-   *  Return the size of list
-   */
-  public int size() {
-    return size;
-  }
-
-  /*
-   *  Check Empty
-   */
-  public boolean isEmpty() {
-    return size == 0;
-  }
-
-  /*
    *  Clear the whole list
    */
   public void clearList() {
     head = dummy;
     size = 0;
-  }
-
-  /*
-   *  Return the head of list
-   */
-  public T peek() {
-    if (isEmpty()) {
-      out.println("The list is empty");
-    }
-    return head.getData();
   }
 
   /*

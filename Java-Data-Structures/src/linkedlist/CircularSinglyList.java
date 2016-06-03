@@ -7,35 +7,10 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class CircularSinglyList<T> {
+public class CircularSinglyList<T> extends LinkedList<T> {
 
-  private ListNode<T> head = null; // the sentinel of the circular list
-  private int size = 0; // the size of the circular list
-
-  public CircularSinglyList() { }
-
-  /*
-   *  Return the head of list
-   */
-  public ListNode<T> getHead() {
-    if (isEmpty()) {
-      out.println("The list is empty");
-    }
-    return head;
-  }
-
-  /*
-   *  Return the size of list
-   */
-  public int size() {
-    return size;
-  }
-
-  /*
-   *  Check Empty
-   */
-  public boolean isEmpty() {
-    return size == 0;
+  public CircularSinglyList() {
+    head = null;
   }
 
   /*
@@ -44,16 +19,6 @@ public class CircularSinglyList<T> {
   public void clearList() {
     head = null;
     size = 0;
-  }
-
-  /*
-   *  Return the head of list
-   */
-  public T peek() {
-    if (head == null) {
-      throw new NullPointerException("The head is null!");
-    }
-    return head.getData();
   }
 
   /*
