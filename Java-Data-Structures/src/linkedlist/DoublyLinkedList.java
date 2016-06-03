@@ -10,80 +10,79 @@ import static java.lang.System.out;
 
 public class DoublyLinkedList<T> implements Iterable<T>{
 
-  private DoublyListNode<T> head = null;
-  private DoublyListNode<T> tail = null;
-  private int length = 0;
+  // the head of the list
+  protected DoublyListNode<T> head = null;
+  // the tail of the list, dummy node
+  protected DoublyListNode<T> dummy = new DoublyListNode<T>();
+  // the size of the list
+  protected int size = 0;
 
-  public DoublyLinkedList() { }
-
-  public DoublyLinkedList(T data) {
-    DoublyListNode<T> newNode = new DoublyListNode<>(data);
-    head = newNode;
-    tail = newNode;
-    length = 1;
+  public DoublyLinkedList() {
+    dummy.setDummy();
+    head = dummy;
   }
 
   /*
    *  Return the head of list
    */
   public DoublyListNode<T> getHead() {
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
     }
     return head;
   }
 
   /*
-   *  Return the head of list
+   *  Return the size of list
    */
-  public DoublyListNode<T> getTail() {
-    if (length == 0) {
-      out.println("The list is empty");
-    }
-    return tail;
-  }
-
-  /*
-   *  Return the length of list
-   */
-  public int getLength() {
-    return length;
+  public int size() {
+    return size;
   }
 
   /*
    *  Check Empty
    */
   public boolean isEmpty() {
-    return (length == 0);
+    return (size == 0);
   }
 
   /*
    *  Clear the whole list
    */
   public void clearList() {
-    head = null;
-    tail = null;
-    length = 0;
+    head = dummy;
+    size = 0;
+  }
+
+  /*
+   *  Return the head of list
+   */
+  public T peek() {
+    if (isEmpty()) {
+      return null;
+    }
+    return head.getData();
   }
 
   /*
    *  Look at the data at certain position
    */
-  public T peekAt(int position) {
-    if (position < 0 || position >= length) {
-      out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
-      return null;
+  public T get(int position) {
+    if (position < 0 || position >= size) {
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    DoublyListNode<T> temp = head;
-    if (length == 0) {
-      out.println("The list is empty");
+    if (isEmpty()) {
       return null;
     } else {
-      for (int i=0; i<position; i++){
-        temp = temp.getNext();
+      DoublyListNode<T> tempNode = head;
+      int index = position;
+      while(index > 0) {
+        tempNode = tempNode.getNext();
+        index --;
       }
-      return temp.getData();
+
+      return tempNode.getData();
     }
   }
 
@@ -94,7 +93,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
     DoublyListNode<T> temp = head;
     int position = 0;
 
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
       return -1;
     }
@@ -124,7 +123,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
   public void insertAtBegin(T data) {
     DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
-    if (length == 0) {
+    if (isEmpty()) {
       head = newNode;
       tail = newNode;
     } else {
@@ -132,7 +131,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       head.setPrev(newNode);
       head = newNode;
     }
-    length ++;
+    size ++;
 
   }
 
@@ -142,7 +141,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
   public void insertAtEnd(T data) {
     DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
-    if (length == 0) {
+    if (isEmpty()) {
       head = newNode;
       tail = newNode;
     } else {
@@ -150,7 +149,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       tail.setNext(newNode);
       tail = newNode;
     }
-    length ++;
+    size ++;
 
   }
 
@@ -159,14 +158,14 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    */
   public boolean insert(T data, int position) {
     // Check the position
-    if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+    if (position < 0 || position >= size) {
+      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
       return false;
     }
 
     DoublyListNode<T> temp = head;
     DoublyListNode<T> newNode = new DoublyListNode<>(data);
-    if (length == 0) {
+    if (isEmpty()) {
       head = newNode;
       tail = newNode;
     } else if (position == 0) {
@@ -183,7 +182,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       temp.setNext(newNode);
     }
 
-    length ++;
+    size ++;
     return true;
   }
 
@@ -196,21 +195,21 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    *  Remove a node from the beginning of the list
    */
   public T removeFirst() {
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (length == 1) {
+    } else if (size == 1) {
       DoublyListNode<T> temp = head;
       head = null;
       tail = null;
-      length --;
+      size --;
       return temp.getData();
     }
 
     DoublyListNode<T> temp = head;
     head = head.getNext();
     head.setPrev(null);
-    length --;
+    size --;
     return temp.getData();
   }
 
@@ -218,21 +217,21 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    *  Remove a node from the end of the list
    */
   public T removeLast() {
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (length == 1) {
+    } else if (size == 1) {
       DoublyListNode<T> temp = head;
       head = null;
       tail = null;
-      length --;
+      size --;
       return temp.getData();
     }
 
     DoublyListNode<T> temp = tail;
     tail = tail.getPrev();
     tail.setNext(null);
-    length --;
+    size --;
     return temp.getData();
   }
 
@@ -240,20 +239,20 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    *  Remove a node from certain position
    */
   public T removeFrom(int position) {
-    if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+    if (position < 0 || position >= size) {
+      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
       return null;
     }
 
     DoublyListNode<T> temp = head;
 //    DoublyListNode<T> removedNode = temp.getNext();
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
       head = head.getNext();
       head.setPrev(null);
-      length --;
+      size --;
       return temp.getData();
     } else {
       DoublyListNode<T> removedNode = temp.getNext();
@@ -264,12 +263,12 @@ public class DoublyLinkedList<T> implements Iterable<T>{
       if (removedNode.getNext() == null) {
         temp.setNext(null);
         tail = temp;
-        length --;
+        size --;
         return removedNode.getData();
       }
       temp.setNext(removedNode.getNext());
       removedNode.getNext().setPrev(temp);
-      length --;
+      size --;
       return removedNode.getData();
     }
   }
@@ -316,7 +315,7 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    */
   public String toString() {
     String str = "";
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty!");
       return str;
     }

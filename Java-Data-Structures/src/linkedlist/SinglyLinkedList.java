@@ -1,7 +1,6 @@
 /**
  * Class:  SingleLinkedList
  * Author: Chang LIU
- *
  */
 
 package linkedlist;
@@ -10,7 +9,6 @@ import java.util.Iterator;
 import static java.lang.System.out;
 
 public class SinglyLinkedList<T> implements Iterable<T>{
-
 
   // the head of the list
   protected ListNode<T> head = null;
