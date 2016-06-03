@@ -12,6 +12,8 @@ public class ListNode<T> {
   private ListNode<T> next = null;
   private T data;
 
+  public ListNode() { }
+
   public ListNode(T data) {
     this.data = data;
   }
