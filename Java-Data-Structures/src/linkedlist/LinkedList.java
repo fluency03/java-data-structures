@@ -12,7 +12,7 @@ import static java.lang.System.out;
 public abstract class LinkedList<T> implements Iterable<T>{
 
   // the head of the list
-  protected ListNode<T> head;
+  protected ListNode<T> head = null;
   // the tail of the list, dummy node
   protected ListNode<T> dummy = new ListNode<T>();
   // the size of the list

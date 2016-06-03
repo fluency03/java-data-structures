@@ -12,7 +12,7 @@ public class ListNode<T> {
   private static final Object DUMMY = new Object();
 
   private ListNode<T> next = null;
-  private T data;
+  private T data = null;
 
   public ListNode() { }
 
