@@ -1,5 +1,5 @@
 /**
- * Class: CircularSingleList
+ * Class: CircularDoubleList
  * Author: Chang LIU
  */
 
@@ -7,44 +7,45 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class CircularSingleList<T> {
+public class CircularDoublyList<T> {
 
-  private ListNode<T> head = null; // the sentinel of the circular list
+  private DoubleListNode<T> head = null; // the sentinel of the circular list
   private int length = 0; // the length of the circular list
-  
-  public CircularSingleList() { }
-  
-  public CircularSingleList(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
+
+  public CircularDoubleList() { }
+
+  public CircularDoubleList(T data) {
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
     newNode.setNext(newNode);
+    newNode.setPrev(newNode);
     head = newNode;
     length = 1;
   }
-  
+
   /*
    *  Return the head of list
    */
-  public ListNode<T> getHead() {
+  public DoubleListNode<T> getHead() {
     if (length == 0) {
       out.println("The list is empty");
     }
     return head;
   }
-  
+
   /*
    *  Return the length of list
    */
   public int getLength() {
     return length;
   }
-  
+
   /*
    *  Check Empty
    */
   public boolean isEmpty() {
     return (length == 0);
   }
-  
+
   /*
    *  Clear the whole list
    */
@@ -61,218 +62,208 @@ public class CircularSingleList<T> {
       out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
       return null;
     }
-    
+
+    DoubleListNode<T> temp = head;
     if (length == 0) {
       out.println("The list is empty");
       return null;
     } else {
-      ListNode<T> temp = head;      
-      for (int i=0; i<position; i++) {
+      for (int i=0; i<position; i++){
         temp = temp.getNext();
       }
       return temp.getData();
     }
   }
-  
+
   /*
    *  Return the position of first data appeared.
    */
   public int getPosition(T data) {
-    ListNode<T> temp = head;
+    DoubleListNode<T> temp = head;
     int position = 0;
-    
+
     if (length == 0) {
       out.println("The list is empty");
       return -1;
     }
-    
-    while (temp.getNext() != head) {
+
+    while (temp != null) {
       if (temp.getData() == data) {
         return position;
       }
       position ++;
       temp = temp.getNext();
     }
-    
-    // Return Integer.MIN_VALUE if not found
+
+    /*
+     *  Return Integer.MIN_VALUE if not found
+     */
     out.println("The data " + data + " is not found!");
     return -1;
-    
+
   }
-  
+
   /**
    * --------------------------------
    * Insert node with several methods
    * --------------------------------
    */
-
   /*
-   *  Insert a node at the begin of the list
+   *  Insert a node at the front of the list
    */
   public void insertAtBegin(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
 
     if (length == 0) {
-      head = newNode;
       newNode.setNext(newNode);
+      newNode.setPrev(newNode);
+      head = newNode;
     } else {
-      ListNode<T> temp = head;      
-      while (temp.getNext() != head)  {
-        temp = temp.getNext();
-      }
-      temp.setNext(newNode);
       newNode.setNext(head);
+      newNode.setPrev(head.getPrev());
+      head.getPrev().setNext(newNode);
+      head.setPrev(newNode);
       head = newNode;
     }
     length ++;
+
   }
-  
+
   /*
-   *  Insert a data at the end of the list
+   *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
 
     if (length == 0) {
-      head = newNode;
       newNode.setNext(newNode);
+      newNode.setPrev(newNode);
+      head = newNode;
     } else {
-      ListNode<T> temp = head;      
-      while (temp.getNext() != head)  {
-        temp = temp.getNext();
-      }
-      temp.setNext(newNode);
       newNode.setNext(head);
+      newNode.setPrev(head.getPrev());
+      head.getPrev().setNext(newNode);
+      head.setPrev(newNode);
     }
     length ++;
+
   }
-  
+
   /*
-   *  Insert a data at a specified position
+   *  Insert a node at certain position
    */
-  public boolean insert(T data, int position ) {
+  public boolean insert(T data, int position) {
     // Check the position
     if (position < 0 || position >= length) {
       out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return false;
     }
-    
-    ListNode<T> newNode = new ListNode<>(data);
+
+    DoubleListNode<T> temp = head;
+    DoubleListNode<T> newNode = new DoubleListNode<>(data);
     if (length == 0) {
-      head = newNode;
       newNode.setNext(newNode);
-    } else if (position == 0) {
-      ListNode<T> temp = head;      
-      while (temp.getNext() != head)  {
-        temp = temp.getNext();
-      }
-      temp.setNext(newNode);
-      newNode.setNext(head);
+      newNode.setPrev(newNode);
       head = newNode;
     } else {
-      ListNode<T> temp = head;      
-      for (int i=1; i<position; i++) {
+      for (int i=0; i<position; i++){
         temp = temp.getNext();
       }
-      newNode.setNext(temp.getNext());
-      temp.setNext(newNode);
+      newNode.setNext(temp);
+      newNode.setPrev(temp.getPrev());
+      temp.getPrev().setNext(newNode);
+      temp.setPrev(newNode);
+      if (position == 0) {
+        head = newNode;
+      }
     }
-    
+
     length ++;
     return true;
   }
-  
-  
+
   /**
    * --------------------------------
    * Remove node with several methods
    * --------------------------------
    */
   /*
-   *  Remove a node from the begin
+   *  Remove a node from the beginning of the list
    */
   public T removeFirst() {
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
-    }
-    
-    ListNode<T> temp = head;
-    if (temp.getNext() == head) {
+    } else if (length == 1) {
+      DoubleListNode<T> temp = head;
       head = null;
       length --;
       return temp.getData();
-    } else {
-      ListNode<T> stored = head;
-      while (temp.getNext() != head)  {
-        temp = temp.getNext();
-      }
-      temp.setNext(head.getNext());
-      head = temp.getNext();
-      length --;
-      return stored.getData();
     }
-    
+
+    DoubleListNode<T> temp = head;
+    head.getNext().setPrev(head.getPrev());
+    head.getPrev().setNext(head.getNext());
+    head = head.getNext();
+    length --;
+    return temp.getData();
   }
-  
+
   /*
-   *  Remove a node from the end
+   *  Remove a node from the end of the list
    */
   public T removeLast() {
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
-    }
-    
-    ListNode<T> temp = head;
-    ListNode<T> next = temp.getNext();
-    ListNode<T> q = temp;
-    if (next == head) {
+    } else if (length == 1) {
+      DoubleListNode<T> temp = head;
       head = null;
       length --;
       return temp.getData();
-    } else {
-      while ((next = temp.getNext()) != head)  {
-        q = temp;
-        temp = next;
-      }
-      q.setNext(head);
-      length --;
-      return temp.getData();
     }
+
+    DoubleListNode<T> temp = head.getNext();
+    head.setPrev(temp.getPrev());
+    temp.getPrev().setNext(head);
+    length --;
+    return temp.getData();
   }
-  
+
+
   /*
-   *  Remove the node at certain position
+   *  Remove a node from certain position
    */
   public T removeFrom(int position) {
     if (position < 0 || position >= length) {
       out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
       return null;
     }
-    
-    ListNode<T> temp = head;
-    ListNode<T> removedNode = temp.getNext();
+
+    DoubleListNode<T> temp = head;
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (position == 0) {
-      head = head.getNext();
+    } else if (length == 1) {
+      head = null;
       length --;
       return temp.getData();
     } else {
-      for (int i=1; i<position; i++){
+      for (int i=0; i<position; i++) {
         temp = temp.getNext();
-        removedNode = temp.getNext();
       }
-      temp.setNext(removedNode.getNext());
+      temp.getPrev().setNext(temp.getNext());
+      temp.getNext().setPrev(temp.getPrev());
+      if (position == 0) {
+        head = temp.getNext();
+      }
       length --;
-      return removedNode.getData();
+      return temp.getData();
     }
   }
-  
+
   /*
-   *  Convert the list to String
+   * Convert the list into a String
    */
   public String toString() {
     String str = "";
@@ -280,19 +271,15 @@ public class CircularSingleList<T> {
       out.println("The list is empty!");
       return str;
     }
-    
-    ListNode<T> temp = head;
-    ListNode<T> p;
+
+    DoubleListNode<T> temp = head;
+    DoubleListNode<T> p;
     str = str + temp.getData();
     while ((p = temp.getNext()) != head) {
-      str = str + ", " + p.getData();
+      str = str + "," + p.getData();
       temp = temp.getNext();
     }
-    
     return str;
   }
-  
-  
-  
-  
+
 }
