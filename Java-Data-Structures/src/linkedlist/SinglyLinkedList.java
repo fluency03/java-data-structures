@@ -14,12 +14,13 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   // the head of the list
   private ListNode<T> head;
   // the tail of the list, dummy node
-  private ListNode<T> dummy = new ListNode<>(null);
-  // the length of the list
-  private int length = 0;
+  private ListNode<T> dummy = new ListNode<T>();
+  // the size of the list
+  private int size = 0;
 
   // @SuppressWarnings("unchecked")
   public SinglyLinkedList() {
+    dummy.setDummy();
     head = dummy;
   }
 
@@ -31,17 +32,17 @@ public class SinglyLinkedList<T> implements Iterable<T> {
   }
 
   /*
-   *  Return the length of list
+   *  Return the size of list
    */
   public int size() {
-    return length;
+    return size;
   }
 
   /*
    *  Check Empty
    */
   public boolean isEmpty() {
-    return length == 0;
+    return size == 0;
   }
 
   /*
@@ -49,7 +50,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    */
   public void clearList() {
     head = dummy;
-    length = 0;
+    size = 0;
   }
 
   /*
@@ -63,7 +64,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    * Look at the data at certain position
    */
   public T get(int position) {
-    if (position < 0 || position >= length) {
+    if (position < 0 || position >= size) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
@@ -86,7 +87,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    * Set at the data at certain position
    */
   public void set(int position, T data) {
-    if (position < 0 || position >= length) {
+    if (position < 0 || position >= size) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
@@ -158,7 +159,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     ListNode<T> newNode = new ListNode<T>(data);
     newNode.setNext(head);
     head = newNode;
-    length ++;
+    size ++;
   }
 
   /*
@@ -177,7 +178,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
         tempNode = tempNode.getNext();
       }
       tempNode.add(data);
-      length ++;
+      size ++;
     }
   }
 
@@ -197,7 +198,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     }
 
     // Check the position
-    if (position < 0 || position >= length) {
+    if (position < 0 || position >= size) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
@@ -211,7 +212,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
         index --;
       }
       tempNode.add(data);
-      length ++;
+      size ++;
     }
   }
 
@@ -230,7 +231,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
       return null;
     }
 
-    length --;
+    size --;
     return head.delete();
   }
 
@@ -248,7 +249,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (length == 1) {
+    } else if (size == 1) {
       return removeFirst();
     }
 
@@ -256,7 +257,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
     while (!tempNode.getNext().isDummy())  {
       tempNode = tempNode.getNext();
     }
-    length --;
+    size --;
     return tempNode.delete();
   }
 
@@ -264,14 +265,14 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Remove the node at certain position
    */
   public T removeAt(int position) throws DummyNodeException {
-    if (position < 0 || position >= length) {
+    if (position < 0 || position >= size) {
       throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
     if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
-    } else if (position == 0 || length == 1) {
+    } else if (position == 0 || size == 1) {
       return removeFirst();
     } else {
       ListNode<T> tempNode = head;
@@ -280,7 +281,7 @@ public class SinglyLinkedList<T> implements Iterable<T> {
         tempNode = tempNode.getNext();
         index --;
       }
-      length --;
+      size --;
       return tempNode.delete();
     }
   }
