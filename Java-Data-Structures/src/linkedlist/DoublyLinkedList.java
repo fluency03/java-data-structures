@@ -5,9 +5,10 @@
 
 package linkedlist;
 
+import java.util.Iterator;
 import static java.lang.System.out;
 
-public class DoublyLinkedList<T> {
+public class DoublyLinkedList<T> implements Iterable<T>{
 
   private DoublyListNode<T> head = null;
   private DoublyListNode<T> tail = null;
@@ -270,6 +271,43 @@ public class DoublyLinkedList<T> {
       removedNode.getNext().setPrev(temp);
       length --;
       return removedNode.getData();
+    }
+  }
+
+  /*
+   * Return the iterator()
+   */
+  @Override
+  public Iterator<T> iterator() {
+    return new LinkedListIterator();
+  }
+
+  /**
+   * Iterable implementation
+   */
+  private class LinkedListIterator implements Iterator<T> {
+
+    private DoublyListNode<T> tempNode = head;
+
+    @Override
+    public boolean hasNext() {
+      return !tempNode.isDummy();
+    }
+
+    @Override
+    public T next() {
+      if (hasNext()) {
+        T currentData = tempNode.getData();
+        tempNode = tempNode.getNext();
+        return currentData;
+      } else {
+        return null;
+      }
+    }
+
+    @Override
+    public void remove() {
+       throw new UnsupportedOperationException();
     }
   }
 
