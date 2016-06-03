@@ -10,39 +10,32 @@ import static java.lang.System.out;
 public class CircularSinglyList<T> {
 
   private ListNode<T> head = null; // the sentinel of the circular list
-  private int length = 0; // the length of the circular list
+  private int size = 0; // the size of the circular list
 
   public CircularSinglyList() { }
-
-  public CircularSingleList(T data) {
-    ListNode<T> newNode = new ListNode<>(data);
-    newNode.setNext(newNode);
-    head = newNode;
-    length = 1;
-  }
 
   /*
    *  Return the head of list
    */
   public ListNode<T> getHead() {
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
     }
     return head;
   }
 
   /*
-   *  Return the length of list
+   *  Return the size of list
    */
-  public int getLength() {
-    return length;
+  public int size() {
+    return size;
   }
 
   /*
    *  Check Empty
    */
   public boolean isEmpty() {
-    return (length == 0);
+    return size == 0;
   }
 
   /*
@@ -50,38 +43,71 @@ public class CircularSinglyList<T> {
    */
   public void clearList() {
     head = null;
-    length = 0;
+    size = 0;
+  }
+
+  /*
+   *  Return the head of list
+   */
+  public T peek() {
+    if (head == null) {
+      throw new NullPointerException("The head is null!");
+    }
+    return head.getData();
   }
 
   /*
    *  Look at the data at certain position
    */
-  public T peekAt(int position) {
-    if (position < 0 || position >= length) {
-      out.println("The postion " + position + " is out of range! " + "The length is " + this.length + "!");
-      return null;
+  public T get(int position) {
+    if (position < 0 || position >= size) {
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    if (length == 0) {
+    if (isEmpty()) {
       out.println("The list is empty");
       return null;
     } else {
-      ListNode<T> temp = head;
-      for (int i=0; i<position; i++) {
-        temp = temp.getNext();
+      ListNode<T> tempNode = head;
+      int index = position;
+      while(index > 0) {
+        tempNode = tempNode.getNext();
+        index --;
       }
-      return temp.getData();
+
+      return tempNode.getData();
+    }
+  }
+
+  /*
+   * Set at the data at certain position
+   */
+  public void set(int position, T data) {
+    if (position < 0 || position >= size) {
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
+    }
+
+    if (isEmpty()) {
+      out.println("The list is empty");
+    } else {
+      ListNode<T> tempNode = head;
+      int index = position;
+      while(index > 0) {
+        tempNode = tempNode.getNext();
+        index --;
+      }
+      tempNode.setData(data);
     }
   }
 
   /*
    *  Return the position of first data appeared.
    */
-  public int getPosition(T data) {
+  public int indexOf(T data) {
     ListNode<T> temp = head;
     int position = 0;
 
-    if (length == 0) {
+    if (size == 0) {
       out.println("The list is empty");
       return -1;
     }
@@ -112,7 +138,7 @@ public class CircularSinglyList<T> {
   public void insertAtBegin(T data) {
     ListNode<T> newNode = new ListNode<>(data);
 
-    if (length == 0) {
+    if (size == 0) {
       head = newNode;
       newNode.setNext(newNode);
     } else {
@@ -124,7 +150,7 @@ public class CircularSinglyList<T> {
       newNode.setNext(head);
       head = newNode;
     }
-    length ++;
+    size ++;
   }
 
   /*
@@ -133,7 +159,7 @@ public class CircularSinglyList<T> {
   public void insertAtEnd(T data) {
     ListNode<T> newNode = new ListNode<>(data);
 
-    if (length == 0) {
+    if (size == 0) {
       head = newNode;
       newNode.setNext(newNode);
     } else {
@@ -144,7 +170,7 @@ public class CircularSinglyList<T> {
       temp.setNext(newNode);
       newNode.setNext(head);
     }
-    length ++;
+    size ++;
   }
 
   /*
@@ -152,13 +178,13 @@ public class CircularSinglyList<T> {
    */
   public boolean insert(T data, int position ) {
     // Check the position
-    if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+    if (position < 0 || position >= size) {
+      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
       return false;
     }
 
     ListNode<T> newNode = new ListNode<>(data);
-    if (length == 0) {
+    if (size == 0) {
       head = newNode;
       newNode.setNext(newNode);
     } else if (position == 0) {
@@ -178,7 +204,7 @@ public class CircularSinglyList<T> {
       temp.setNext(newNode);
     }
 
-    length ++;
+    size ++;
     return true;
   }
 
@@ -192,7 +218,7 @@ public class CircularSinglyList<T> {
    *  Remove a node from the begin
    */
   public T removeFirst() {
-    if (length == 0) {
+    if (size == 0) {
       out.println("Nothing to be removed!");
       return null;
     }
@@ -200,7 +226,7 @@ public class CircularSinglyList<T> {
     ListNode<T> temp = head;
     if (temp.getNext() == head) {
       head = null;
-      length --;
+      size --;
       return temp.getData();
     } else {
       ListNode<T> stored = head;
@@ -209,7 +235,7 @@ public class CircularSinglyList<T> {
       }
       temp.setNext(head.getNext());
       head = temp.getNext();
-      length --;
+      size --;
       return stored.getData();
     }
 
@@ -219,7 +245,7 @@ public class CircularSinglyList<T> {
    *  Remove a node from the end
    */
   public T removeLast() {
-    if (length == 0) {
+    if (size == 0) {
       out.println("Nothing to be removed!");
       return null;
     }
@@ -229,7 +255,7 @@ public class CircularSinglyList<T> {
     ListNode<T> q = temp;
     if (next == head) {
       head = null;
-      length --;
+      size --;
       return temp.getData();
     } else {
       while ((next = temp.getNext()) != head)  {
@@ -237,7 +263,7 @@ public class CircularSinglyList<T> {
         temp = next;
       }
       q.setNext(head);
-      length --;
+      size --;
       return temp.getData();
     }
   }
@@ -246,19 +272,19 @@ public class CircularSinglyList<T> {
    *  Remove the node at certain position
    */
   public T removeFrom(int position) {
-    if (position < 0 || position >= length) {
-      out.println("The position " + position +" is out of range! " + "The length is " + this.length + "!");
+    if (position < 0 || position >= size) {
+      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
       return null;
     }
 
     ListNode<T> temp = head;
     ListNode<T> removedNode = temp.getNext();
-    if (length == 0) {
+    if (size == 0) {
       out.println("Nothing to be removed!");
       return null;
     } else if (position == 0) {
       head = head.getNext();
-      length --;
+      size --;
       return temp.getData();
     } else {
       for (int i=1; i<position; i++){
@@ -266,7 +292,7 @@ public class CircularSinglyList<T> {
         removedNode = temp.getNext();
       }
       temp.setNext(removedNode.getNext());
-      length --;
+      size --;
       return removedNode.getData();
     }
   }
@@ -276,7 +302,7 @@ public class CircularSinglyList<T> {
    */
   public String toString() {
     String str = "";
-    if (length == 0) {
+    if (size == 0) {
       out.println("The list is empty!");
       return str;
     }
