@@ -87,29 +87,63 @@ public class DoublyLinkedList<T> implements Iterable<T>{
   }
 
   /*
+   * Set at the data at certain position
+   */
+  public void set(int position, T data) {
+    if (position < 0 || position >= size) {
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
+    }
+
+    if (isEmpty()) {
+      return;
+    } else {
+      DoublyListNode<T> tempNode = head;
+      int index = position;
+      while(index > 0) {
+        tempNode = tempNode.getNext();
+        index --;
+      }
+      tempNode.setData(data);
+    }
+  }
+
+  /*
    *  Return the position of first data appeared.
    */
-  public int getPosition(T data) {
-    DoublyListNode<T> temp = head;
-    int position = 0;
+  public int indexOf(T data) {
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
 
     if (isEmpty()) {
       out.println("The list is empty");
       return -1;
     }
 
-    while (temp != null) {
-      if (temp.getData() == data) {
-        return position;
-      }
+    DoublyListNode<T> tempNode = head;
+    int position = 0;
+    while (!tempNode.isDummy() || tempNode.getData() != data) {
       position ++;
-      temp = temp.getNext();
+      tempNode = tempNode.getNext();
     }
 
-    // Return Integer.MIN_VALUE if not found
-    out.println("The data " + data + " is not found!");
-    return -1;
+    if (tempNode.isDummy()) {
+      return -1;
+    } else {
+      return position;
+    }
 
+  }
+
+  /*
+   * Check whether the linked list contains the specific element
+   */
+  public boolean contains(T data) {
+    if (indexOf(data) == -1) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -121,69 +155,69 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    *  Insert a node at the front of the list
    */
   public void insertAtBegin(T data) {
-    DoublyListNode<T> newNode = new DoublyListNode<>(data);
-
-    if (isEmpty()) {
-      head = newNode;
-      tail = newNode;
-    } else {
-      newNode.setNext(head);
-      head.setPrev(newNode);
-      head = newNode;
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
     }
-    size ++;
 
+    DoublyListNode<T> newNode = new DoublyListNode<T>(data);
+    newNode.setNext(head);
+    head.setPrev(newNode);
+    head = newNode;
+    size ++;
   }
 
   /*
    *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    DoublyListNode<T> newNode = new DoublyListNode<>(data);
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
 
     if (isEmpty()) {
-      head = newNode;
-      tail = newNode;
+      insertAtBegin(data);
     } else {
-      newNode.setPrev(tail);
-      tail.setNext(newNode);
-      tail = newNode;
+      DoublyListNode<T> tempNode = head;
+      while (!tempNode.getNext().isDummy())  {
+        tempNode = tempNode.getNext();
+      }
+      tempNode.add(data);
+      size ++;
     }
-    size ++;
+  }
 
+  /*
+   *  Insert a node at the end of the list
+   */
+  public void add(T data) {
+    insertAtEnd(data);
   }
 
   /*
    *  Insert a node at certain position
    */
-  public boolean insert(T data, int position) {
+  public void insert(T data, int position) {
+    if (data == null) {
+      throw new NullPointerException("The data is null!");
+    }
+
     // Check the position
     if (position < 0 || position >= size) {
-      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
-      return false;
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    DoublyListNode<T> temp = head;
-    DoublyListNode<T> newNode = new DoublyListNode<>(data);
-    if (isEmpty()) {
-      head = newNode;
-      tail = newNode;
-    } else if (position == 0) {
-      newNode.setNext(head);
-      head.setPrev(newNode);
-      head = newNode;
+    if (isEmpty() || position == 0) {
+      insertAtBegin(data);
     } else {
-      for (int i=1; i<position; i++){
-        temp = temp.getNext();
+      DoublyListNode<T> tempNode = head;
+      int index = position;
+      while(index > 1) {
+        tempNode = tempNode.getNext();
+        index --;
       }
-      newNode.setNext(temp.getNext());
-      newNode.setPrev(temp);
-      temp.getNext().setPrev(newNode);
-      temp.setNext(newNode);
+      tempNode.add(data);
+      size ++;
     }
-
-    size ++;
-    return true;
   }
 
   /**
@@ -194,82 +228,65 @@ public class DoublyLinkedList<T> implements Iterable<T>{
   /*
    *  Remove a node from the beginning of the list
    */
-  public T removeFirst() {
+  public T removeFirst() throws DummyNodeException {
     if (isEmpty()) {
-      out.println("Nothing to be removed!");
       return null;
-    } else if (size == 1) {
-      DoublyListNode<T> temp = head;
-      head = null;
-      tail = null;
-      size --;
-      return temp.getData();
     }
 
-    DoublyListNode<T> temp = head;
+    DoublyListNode<T> tempNode = head;
     head = head.getNext();
     head.setPrev(null);
     size --;
-    return temp.getData();
+    return tempNode.getData();
+  }
+
+  /*
+   *  Remove a node from the begin
+   */
+  public T pop() throws DummyNodeException {
+    return removeFirst();
   }
 
   /*
    *  Remove a node from the end of the list
    */
-  public T removeLast() {
+  public T removeLast() throws DummyNodeException {
     if (isEmpty()) {
       out.println("Nothing to be removed!");
       return null;
     } else if (size == 1) {
-      DoublyListNode<T> temp = head;
-      head = null;
-      tail = null;
-      size --;
-      return temp.getData();
+      return removeFirst();
     }
 
-    DoublyListNode<T> temp = tail;
-    tail = tail.getPrev();
-    tail.setNext(null);
+    DoublyListNode<T> tempNode = head;
+    while (!tempNode.getNext().isDummy())  {
+      tempNode = tempNode.getNext();
+    }
     size --;
-    return temp.getData();
+    return tempNode.delete();
   }
 
   /*
-   *  Remove a node from certain position
+   *  Remove the node at certain position
    */
-  public T removeFrom(int position) {
+  public T removeAt(int position) throws DummyNodeException {
     if (position < 0 || position >= size) {
-      out.println("The position " + position +" is out of range! " + "The size is " + this.size + "!");
-      return null;
+      throw new IndexOutOfBoundsException("Position " + position + " is out of bounds!");
     }
 
-    DoublyListNode<T> temp = head;
-//    DoublyListNode<T> removedNode = temp.getNext();
     if (isEmpty()) {
-      out.println("Nothing to be removed!");
       return null;
-    } else if (position == 0) {
-      head = head.getNext();
-      head.setPrev(null);
-      size --;
-      return temp.getData();
+    } else if (position == 0 || size == 1) {
+      return removeFirst();
     } else {
-      DoublyListNode<T> removedNode = temp.getNext();
-      for (int i=1; i<position; i++){
-        temp = temp.getNext();
-        removedNode = temp.getNext();
+      DoublyListNode<T> tempNode = head;
+      int index = position;
+      while (index > 0){
+        tempNode = tempNode.getNext();
+        index --;
       }
-      if (removedNode.getNext() == null) {
-        temp.setNext(null);
-        tail = temp;
-        size --;
-        return removedNode.getData();
-      }
-      temp.setNext(removedNode.getNext());
-      removedNode.getNext().setPrev(temp);
       size --;
-      return removedNode.getData();
+      return tempNode.delete();
     }
   }
 
@@ -314,20 +331,19 @@ public class DoublyLinkedList<T> implements Iterable<T>{
    * Convert the list into a String
    */
   public String toString() {
-    String str = "";
+    StringBuffer sBuffer = new StringBuffer("");
     if (isEmpty()) {
-      out.println("The list is empty!");
-      return str;
+      return sBuffer.toString();
     }
 
-    DoublyListNode<T> temp = head;
-    DoublyListNode<T> p;
-    str = str + temp.getData();
-    while ((p = temp.getNext()) != null) {
-      str = str + "," + p.getData();
-      temp = temp.getNext();
+    DoublyListNode<T> tempNode = head;
+    while (!tempNode.isDummy()) {
+      sBuffer.append(tempNode.getData().toString());
+      sBuffer.append(" ");
+      tempNode = tempNode.getNext();
     }
-    return str;
+
+    return sBuffer.toString();
   }
 
 
