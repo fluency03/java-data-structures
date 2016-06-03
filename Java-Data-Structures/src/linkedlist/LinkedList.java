@@ -51,10 +51,7 @@ public abstract class LinkedList<T> implements Iterable<T>{
   /*
    *  Clear the whole list
    */
-  public void clearList() {
-    head = dummy;
-    size = 0;
-  }
+  public abstract void clearList();
 
   /*
    *  Return the head of list
@@ -156,21 +153,12 @@ public abstract class LinkedList<T> implements Iterable<T>{
   /*
    *  Insert a node at beginning of the list
    */
-  public void insertAtBegin(T data) {
-    if (data == null) {
-      throw new NullPointerException("The data is null!");
-    }
-
-    ListNode<T> newNode = new ListNode<T>(data);
-    newNode.setNext(head);
-    head = newNode;
-    size ++;
-  }
+  public abstract void insertAtBegin(T data);
 
   /*
    *  Insert a node at the end of the list
    */
-  private void insertAtEnd(T data) {
+  public void insertAtEnd(T data) {
     if (data == null) {
       throw new NullPointerException("The data is null!");
     }
@@ -187,12 +175,12 @@ public abstract class LinkedList<T> implements Iterable<T>{
     }
   }
 
-    /*
-     *  Insert a node at the end of the list
-     */
-    public void add(T data) {
-      insertAtEnd(data);
-    }
+  /*
+   *  Insert a node at the end of the list
+   */
+  public void add(T data) {
+    insertAtEnd(data);
+  }
 
   /*
    *  Insert a data at a specified position
@@ -230,15 +218,7 @@ public abstract class LinkedList<T> implements Iterable<T>{
   /*
    *  Remove a node from the begin
    */
-  public T removeFirst() throws DummyNodeException {
-    if (isEmpty()) {
-      out.println("Nothing to be removed!");
-      return null;
-    }
-
-    size --;
-    return head.delete();
-  }
+  public abstract T removeFirst() throws DummyNodeException;
 
   /*
    *  Remove a node from the begin
@@ -275,7 +255,6 @@ public abstract class LinkedList<T> implements Iterable<T>{
     }
 
     if (isEmpty()) {
-      out.println("Nothing to be removed!");
       return null;
     } else if (position == 0 || size == 1) {
       return removeFirst();
@@ -308,14 +287,15 @@ public abstract class LinkedList<T> implements Iterable<T>{
 
     @Override
     public boolean hasNext() {
-      return !tempNode.getNext().isDummy();
+      return !tempNode.isDummy();
     }
 
     @Override
     public T next() {
       if (hasNext()) {
+        T currentData = tempNode.getData();
         tempNode = tempNode.getNext();
-        return tempNode.getData();
+        return currentData;
       } else {
         return null;
       }
@@ -333,7 +313,6 @@ public abstract class LinkedList<T> implements Iterable<T>{
   public String toString() {
     StringBuffer sBuffer = new StringBuffer("");
     if (isEmpty()) {
-      out.println("The list is empty!");
       return sBuffer.toString();
     }
 
