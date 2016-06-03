@@ -7,6 +7,8 @@ package linkedlist;
 
 public class ListNode<T> {
 
+  private static final Object DUMMY = new Object();
+
   private ListNode<T> next = null;
   private T data;
 
@@ -43,9 +45,16 @@ public class ListNode<T> {
   /*
    * Check whether this node is dummy node
    */
-   public boolean isDummy() {
-     return data == null;
-   }
+  public boolean isDummy() {
+    return data == DUMMY;
+  }
+
+  /*
+   * Check whether this node is dummy node
+   */
+  public void setDummy() {
+    return data = DUMMY;
+  }
 
   /*
    *  Obtain the next node
