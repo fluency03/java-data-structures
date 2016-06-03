@@ -9,15 +9,20 @@ package linkedlist;
 import java.util.Iterator;
 import static java.lang.System.out;
 
-public abstract class LinkedList<T> {
+public abstract class LinkedList<T> implements Iterable<T>{
 
   // the head of the list
   protected ListNode<T> head;
+  // the tail of the list, dummy node
+  protected ListNode<T> dummy = new ListNode<T>();
   // the size of the list
   protected int size = 0;
 
   // @SuppressWarnings("unchecked")
-  public LinkedList() { }
+  public LinkedList() {
+    dummy.setDummy();
+    head = dummy;
+  }
 
   /*
    *  Return the head of list
@@ -46,14 +51,17 @@ public abstract class LinkedList<T> {
   /*
    *  Clear the whole list
    */
-  public abstract void clearList();
+  public void clearList() {
+    head = dummy;
+    size = 0;
+  }
 
   /*
    *  Return the head of list
    */
   public T peek() {
     if (isEmpty()) {
-      throw new EmptyListException("The list is empty!");
+      return null;
     }
     return head.getData();
   }
@@ -67,7 +75,6 @@ public abstract class LinkedList<T> {
     }
 
     if (isEmpty()) {
-      out.println("The list is empty");
       return null;
     } else {
       ListNode<T> tempNode = head;
@@ -90,7 +97,7 @@ public abstract class LinkedList<T> {
     }
 
     if (isEmpty()) {
-      out.println("The list is empty");
+      return;
     } else {
       ListNode<T> tempNode = head;
       int index = position;
