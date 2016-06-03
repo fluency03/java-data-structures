@@ -17,10 +17,41 @@ public class DoublyListNode<T> {
     this.data = data;
   }
 
-  public DoublyListNode(T data, DoublyListNode<T> prev, DoublyListNode<T> next) {
-    this.data = data;
-    this.prev = prev;
-    this.next = next;
+  /*
+   * Add a new node after the current node
+   * Time Complexity: O(1)
+   */
+  public void add(T data) {
+    DoublyListNode<T> newNode = new DoublyListNode<T>(data);
+    if (next == null) {
+      this.next = newNode;
+      newNode.setPrev(this);
+    } else {
+      DoublyListNode<T> nextNode = this.next;
+      this.next = newNode;
+      newNode.setPrev(this);
+      newNode.setNext(nextNode);
+      nextNode.setPrev(newNode);
+    }
+  }
+
+  /*
+   * Delete the next node of current node
+   * Time Complexity: O(1)
+   */
+  public T delete() {
+    if (this.prev == null && this.next == null) {
+      throw new UnsupportedOperationException("Prev and Next are both null.");
+    } else if (this.prev == null) {
+      this.next.setPrev(null);
+    } else if (this.next == null) {
+      this.prev.setNext(null);
+    } else {
+      this.next.setPrev(this.prev);
+      this.prev.setNext(this.next);
+    }
+
+    return this.data;
   }
 
   /*
