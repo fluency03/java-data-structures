@@ -1,5 +1,5 @@
 /**
- * Class: DoubleListNode
+ * Class: DoublyListNode
  * Author: Chang LIU
  */
 
@@ -7,17 +7,17 @@ package linkedlist;
 
 public class DoublyListNode<T> {
 
-  private DoubleListNode<T> prev = null;
-  private DoubleListNode<T> next = null;
+  private DoublyListNode<T> prev = null;
+  private DoublyListNode<T> next = null;
   private T data = null;
 
-  public DoubleListNode () { }
+  public DoublyListNode () { }
 
-  public DoubleListNode (T data) {
+  public DoublyListNode (T data) {
     this.data = data;
   }
 
-  public DoubleListNode(T data, DoubleListNode<T> prev, DoubleListNode<T> next) {
+  public DoublyListNode(T data, DoublyListNode<T> prev, DoublyListNode<T> next) {
     this.data = data;
     this.prev = prev;
     this.next = next;
@@ -40,28 +40,28 @@ public class DoublyListNode<T> {
   /*
    *  Return the previous node
    */
-  public DoubleListNode<T> getPrev(){
+  public DoublyListNode<T> getPrev(){
     return prev;
   }
 
   /*
    *  Set previous node
    */
-  public void setPrev(DoubleListNode<T> prev) {
+  public void setPrev(DoublyListNode<T> prev) {
     this.prev = prev;
   }
 
   /*
    *  Return the next node
    */
-  public DoubleListNode<T> getNext(){
+  public DoublyListNode<T> getNext(){
     return next;
   }
 
   /*
    *  Set the next node
    */
-  public void setNext(DoubleListNode<T> next) {
+  public void setNext(DoublyListNode<T> next) {
     this.next = next;
   }
 

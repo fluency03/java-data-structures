@@ -9,14 +9,14 @@ import static java.lang.System.out;
 
 public class DoublyLinkedList<T> {
 
-  private DoubleListNode<T> head = null;
-  private DoubleListNode<T> tail = null;
+  private DoublyListNode<T> head = null;
+  private DoublyListNode<T> tail = null;
   private int length = 0;
 
-  public DoubleLinkedList() { }
+  public DoublyLinkedList() { }
 
-  public DoubleLinkedList(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+  public DoublyLinkedList(T data) {
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
     head = newNode;
     tail = newNode;
     length = 1;
@@ -25,7 +25,7 @@ public class DoublyLinkedList<T> {
   /*
    *  Return the head of list
    */
-  public DoubleListNode<T> getHead() {
+  public DoublyListNode<T> getHead() {
     if (length == 0) {
       out.println("The list is empty");
     }
@@ -35,7 +35,7 @@ public class DoublyLinkedList<T> {
   /*
    *  Return the head of list
    */
-  public DoubleListNode<T> getTail() {
+  public DoublyListNode<T> getTail() {
     if (length == 0) {
       out.println("The list is empty");
     }
@@ -74,7 +74,7 @@ public class DoublyLinkedList<T> {
       return null;
     }
 
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     if (length == 0) {
       out.println("The list is empty");
       return null;
@@ -90,7 +90,7 @@ public class DoublyLinkedList<T> {
    *  Return the position of first data appeared.
    */
   public int getPosition(T data) {
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     int position = 0;
 
     if (length == 0) {
@@ -121,7 +121,7 @@ public class DoublyLinkedList<T> {
    *  Insert a node at the front of the list
    */
   public void insertAtBegin(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
     if (length == 0) {
       head = newNode;
@@ -139,7 +139,7 @@ public class DoublyLinkedList<T> {
    *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
     if (length == 0) {
       head = newNode;
@@ -163,8 +163,8 @@ public class DoublyLinkedList<T> {
       return false;
     }
 
-    DoubleListNode<T> temp = head;
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> temp = head;
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
     if (length == 0) {
       head = newNode;
       tail = newNode;
@@ -199,14 +199,14 @@ public class DoublyLinkedList<T> {
       out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
-      DoubleListNode<T> temp = head;
+      DoublyListNode<T> temp = head;
       head = null;
       tail = null;
       length --;
       return temp.getData();
     }
 
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     head = head.getNext();
     head.setPrev(null);
     length --;
@@ -221,14 +221,14 @@ public class DoublyLinkedList<T> {
       out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
-      DoubleListNode<T> temp = head;
+      DoublyListNode<T> temp = head;
       head = null;
       tail = null;
       length --;
       return temp.getData();
     }
 
-    DoubleListNode<T> temp = tail;
+    DoublyListNode<T> temp = tail;
     tail = tail.getPrev();
     tail.setNext(null);
     length --;
@@ -244,8 +244,8 @@ public class DoublyLinkedList<T> {
       return null;
     }
 
-    DoubleListNode<T> temp = head;
-//    DoubleListNode<T> removedNode = temp.getNext();
+    DoublyListNode<T> temp = head;
+//    DoublyListNode<T> removedNode = temp.getNext();
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
@@ -255,7 +255,7 @@ public class DoublyLinkedList<T> {
       length --;
       return temp.getData();
     } else {
-      DoubleListNode<T> removedNode = temp.getNext();
+      DoublyListNode<T> removedNode = temp.getNext();
       for (int i=1; i<position; i++){
         temp = temp.getNext();
         removedNode = temp.getNext();
@@ -283,8 +283,8 @@ public class DoublyLinkedList<T> {
       return str;
     }
 
-    DoubleListNode<T> temp = head;
-    DoubleListNode<T> p;
+    DoublyListNode<T> temp = head;
+    DoublyListNode<T> p;
     str = str + temp.getData();
     while ((p = temp.getNext()) != null) {
       str = str + "," + p.getData();

@@ -9,13 +9,13 @@ import static java.lang.System.out;
 
 public class CircularDoublyList<T> {
 
-  private DoubleListNode<T> head = null; // the sentinel of the circular list
+  private DoublyListNode<T> head = null; // the sentinel of the circular list
   private int length = 0; // the length of the circular list
 
-  public CircularDoubleList() { }
+  public CircularDoublyList() { }
 
-  public CircularDoubleList(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+  public CircularDoublyList(T data) {
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
     newNode.setNext(newNode);
     newNode.setPrev(newNode);
     head = newNode;
@@ -25,7 +25,7 @@ public class CircularDoublyList<T> {
   /*
    *  Return the head of list
    */
-  public DoubleListNode<T> getHead() {
+  public DoublyListNode<T> getHead() {
     if (length == 0) {
       out.println("The list is empty");
     }
@@ -63,7 +63,7 @@ public class CircularDoublyList<T> {
       return null;
     }
 
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     if (length == 0) {
       out.println("The list is empty");
       return null;
@@ -79,7 +79,7 @@ public class CircularDoublyList<T> {
    *  Return the position of first data appeared.
    */
   public int getPosition(T data) {
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     int position = 0;
 
     if (length == 0) {
@@ -112,7 +112,7 @@ public class CircularDoublyList<T> {
    *  Insert a node at the front of the list
    */
   public void insertAtBegin(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
     if (length == 0) {
       newNode.setNext(newNode);
@@ -133,7 +133,7 @@ public class CircularDoublyList<T> {
    *  Insert a node at the end of the list
    */
   public void insertAtEnd(T data) {
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
 
     if (length == 0) {
       newNode.setNext(newNode);
@@ -159,8 +159,8 @@ public class CircularDoublyList<T> {
       return false;
     }
 
-    DoubleListNode<T> temp = head;
-    DoubleListNode<T> newNode = new DoubleListNode<>(data);
+    DoublyListNode<T> temp = head;
+    DoublyListNode<T> newNode = new DoublyListNode<>(data);
     if (length == 0) {
       newNode.setNext(newNode);
       newNode.setPrev(newNode);
@@ -195,13 +195,13 @@ public class CircularDoublyList<T> {
       out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
-      DoubleListNode<T> temp = head;
+      DoublyListNode<T> temp = head;
       head = null;
       length --;
       return temp.getData();
     }
 
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     head.getNext().setPrev(head.getPrev());
     head.getPrev().setNext(head.getNext());
     head = head.getNext();
@@ -217,13 +217,13 @@ public class CircularDoublyList<T> {
       out.println("Nothing to be removed!");
       return null;
     } else if (length == 1) {
-      DoubleListNode<T> temp = head;
+      DoublyListNode<T> temp = head;
       head = null;
       length --;
       return temp.getData();
     }
 
-    DoubleListNode<T> temp = head.getNext();
+    DoublyListNode<T> temp = head.getNext();
     head.setPrev(temp.getPrev());
     temp.getPrev().setNext(head);
     length --;
@@ -240,7 +240,7 @@ public class CircularDoublyList<T> {
       return null;
     }
 
-    DoubleListNode<T> temp = head;
+    DoublyListNode<T> temp = head;
     if (length == 0) {
       out.println("Nothing to be removed!");
       return null;
@@ -272,8 +272,8 @@ public class CircularDoublyList<T> {
       return str;
     }
 
-    DoubleListNode<T> temp = head;
-    DoubleListNode<T> p;
+    DoublyListNode<T> temp = head;
+    DoublyListNode<T> p;
     str = str + temp.getData();
     while ((p = temp.getNext()) != head) {
       str = str + "," + p.getData();
