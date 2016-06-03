@@ -39,11 +39,15 @@ public class ListNode<T> {
       throw new DummyNodeException("This is a dummy node.");
     }
 
-    ListNode<T> nextNode = this.next;
-    T thisData = this.data;
-    this.data = nextNode.data;
-    this.next = nextNode.next;
-    return thisData;
+    if (this.next != null) {
+      ListNode<T> nextNode = this.next;
+      T thisData = this.data;
+      this.data = nextNode.data;
+      this.next = nextNode.next;
+      return thisData;
+    } else {
+      throw new DummyNodeException("Next is null.");
+    }
   }
 
   /*
