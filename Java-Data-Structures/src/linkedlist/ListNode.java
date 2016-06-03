@@ -5,6 +5,8 @@
 
 package linkedlist;
 
+import static java.lang.System.out;
+
 public class ListNode<T> {
 
   private static final Object DUMMY = new Object();
@@ -54,8 +56,9 @@ public class ListNode<T> {
   /*
    * Check whether this node is dummy node
    */
+  @SuppressWarnings("unchecked")
   public void setDummy() {
-    return data = DUMMY;
+    data = (T)DUMMY;
   }
 
   /*
@@ -94,5 +97,29 @@ public class ListNode<T> {
     return str + data;
   }
 
+  /**
+   * Main function
+   */
+  public static void main(String[] args) {
+    ListNode<Integer> testNode1 = new ListNode<Integer>(1);
+    ListNode<Integer> testNode2 = new ListNode<Integer>(2);
+    ListNode<Integer> testNode3 = new ListNode<Integer>(3);
+    ListNode<Integer> testNode4 = new ListNode<Integer>(4);
+    ListNode<Integer> testNode5 = new ListNode<Integer>(5);
+    ListNode<Integer> testNodeD = new ListNode<Integer>();
+    testNodeD.setDummy();
+
+    // try {
+    out.println(testNode1.toString());
+    out.println(testNode2.toString());
+    out.println(testNode3.toString());
+    out.println(testNode4.toString());
+    out.println(testNode5.toString());
+    out.println(testNodeD.toString());
+    // } catch (DummyNodeException e) {
+
+    // }
+
+  }
 
 }
