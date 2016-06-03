@@ -7,9 +7,9 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class CircularSinglyList<T> extends LinkedList<T> {
+public class CircularSinglyLinkedList<T> extends LinkedList<T> {
 
-  public CircularSinglyList() {
+  public CircularSinglyLinkedList() {
     super();
     dummy.setNext(dummy);
   }
