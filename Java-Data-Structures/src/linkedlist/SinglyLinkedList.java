@@ -28,6 +28,9 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Return the head of list
    */
   public ListNode<T> getHead() {
+    if (isEmpty()) {
+      out.println("The list is empty");
+    }
     return head;
   }
 
@@ -57,6 +60,9 @@ public class SinglyLinkedList<T> implements Iterable<T> {
    *  Return the head of list
    */
   public T peek() {
+    if (isEmpty()) {
+      out.println("The list is empty");
+    }
     return head.getData();
   }
 
