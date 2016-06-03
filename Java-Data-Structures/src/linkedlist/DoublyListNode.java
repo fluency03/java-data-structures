@@ -7,6 +7,8 @@ package linkedlist;
 
 public class DoublyListNode<T> {
 
+  private static final Object DUMMY = new Object();
+
   private DoublyListNode<T> prev = null;
   private DoublyListNode<T> next = null;
   private T data = null;
@@ -39,7 +41,11 @@ public class DoublyListNode<T> {
    * Delete the next node of current node
    * Time Complexity: O(1)
    */
-  public T delete() {
+  public T delete() throws DummyNodeException {
+    if (isDummy()) { /* The current node is the last node. */
+      throw new DummyNodeException("This is a dummy node.");
+    }
+
     if (this.prev == null && this.next == null) {
       throw new UnsupportedOperationException("Prev and Next are both null.");
     } else if (this.prev == null) {
@@ -52,6 +58,21 @@ public class DoublyListNode<T> {
     }
 
     return this.data;
+  }
+
+  /*
+   * Check whether this node is dummy node
+   */
+  public boolean isDummy() {
+    return data == DUMMY;
+  }
+
+  /*
+   * Check whether this node is dummy node
+   */
+  @SuppressWarnings("unchecked")
+  public void setDummy() {
+    data = (T)DUMMY;
   }
 
   /*
