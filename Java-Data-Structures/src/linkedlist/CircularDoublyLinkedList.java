@@ -7,14 +7,14 @@ package linkedlist;
 
 import static java.lang.System.out;
 
-public class CircularDoublyList<T> {
+public class CircularDoublyLinkedList<T> {
 
   private DoublyListNode<T> head = null; // the sentinel of the circular list
   private int length = 0; // the length of the circular list
 
-  public CircularDoublyList() { }
+  public CircularDoublyLinkedList() { }
 
-  public CircularDoublyList(T data) {
+  public CircularDoublyLinkedList(T data) {
     DoublyListNode<T> newNode = new DoublyListNode<>(data);
     newNode.setNext(newNode);
     newNode.setPrev(newNode);
